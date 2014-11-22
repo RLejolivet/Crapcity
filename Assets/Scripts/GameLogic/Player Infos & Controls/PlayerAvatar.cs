@@ -57,19 +57,22 @@ public class PlayerAvatar : MonoBehaviour {
 	public void getSendWastes(bool stock)
 	{
 		float readyToSend = map_myPlayer.getSendWastes(stock);
-		if (readyToSend > dic_resourcesPlayer["Negatif"])
+		if(dic_resourcesPlayer.ContainsKey("Negatif"))
 		{
-			readyToSend = dic_resourcesPlayer["Negatif"];
-		}	
-		if (this.networkView.isMine)
-		{
-			networkView.RPC("sendWaste", RPCMode.OthersBuffered, readyToSend);	
-			dic_resourcesPlayer["Negatif"] -= readyToSend;
-		}
-		else
-		{
-			// shouldn't happen
-			Debug.Log("Try to sendWaste when not allowed to");
+			if (readyToSend > dic_resourcesPlayer["Negatif"])
+			{
+				readyToSend = dic_resourcesPlayer["Negatif"];
+			}	
+			if (this.networkView.isMine)
+			{
+				networkView.RPC("sendWaste", RPCMode.OthersBuffered, readyToSend);	
+				dic_resourcesPlayer["Negatif"] -= readyToSend;
+			}
+			else
+			{
+				// shouldn't happen
+				Debug.Log("Try to sendWaste when not allowed to");
+			}
 		}
 	}
 	
