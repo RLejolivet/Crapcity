@@ -9,6 +9,8 @@ public class Map {
 	 **/
 
 	private List<Case> terrain;
+    private NetworkView nv;
+
 	public int terrainSize ()
 	{
 		if (terrain != null)
@@ -17,13 +19,14 @@ public class Map {
 	}		
 			
 			
-	public Map(int nbCases)
+	public Map(int nbCases, NetworkView nv = null)
 	{
 		terrain = new List<Case>();
 		for (int i=0; i < nbCases; i++)
 		{
 			terrain.Add(new Case());
 		}
+        this.nv = nv;
 	}
 	
 	
@@ -54,8 +57,13 @@ public class Map {
 		}
 	}
 	
-	public bool destroyBuildOnCase(int i)
+[RPC]	public bool destroyBuildOnCase(int i)
 	{
+        if (nv.isMine)
+        {
+            nv.RPC("destroyBuildingOnCase", RPCMode.OthersBuffered, i);
+        }
+
 		if (terrain.Count > i)
 		{
 			return (terrain[i].destroyBuilding());
@@ -66,4 +74,22 @@ public class Map {
 			return false;
 		}
 	}
+
+[RPC]    public bool createBuildingOnCase(int i, string name)
+    {
+
+        if (nv.isMine)
+        {
+            nv.RPC("createBuildingOnCase", RPCMode.OthersBuffered, i, name);
+        }
+        if (terrain.Count > i)
+        {
+            return (terrain[i].build(name));
+        }
+        else
+        {
+            Debug.Log("Fail to create building on compartment : " + i);
+            return false;
+        }
+    }
 }

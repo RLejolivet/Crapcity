@@ -2,6 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 
+using System;
+using System.Runtime.Serialization.Formatters.Binary;
+
+[Serializable()]
 public class Building {
 
 	private string s_nameBuilding = null;
@@ -12,6 +16,7 @@ public class Building {
 	private float f_buildTime = -1;
     private float f_storage = -1;
     private BuildingTemplate origin;
+    private bool is_hacked = false;
 
 	public Building(BuildingTemplate b)
 	{
