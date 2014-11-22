@@ -14,6 +14,13 @@ $RECYCLE.BIN/
 *.msm
 *.msp
 
+#Unity files
+*.meta
+
+#VStudio project files
+*.csproj
+*.sln
+
 # =========================
 # Operating System Files
 # =========================
