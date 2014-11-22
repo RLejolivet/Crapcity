@@ -120,8 +120,8 @@ public class GameManager: MonoBehaviour {
 
 	public void createMap(int _i_idMyPlayerInGame)
 	{
-
-		array_allPlayersInfos [_i_idMyPlayerInGame].mapPlayer = GameObject.Instantiate (GlobalVariables.GO_MAP, new Vector3(-2, 0, 0), Quaternion.identity) as GameObject;
+		Vector3 v3_posMap = Camera.main.ScreenToWorldPoint (new Vector3(Screen.width * 0.3f, Screen.height * 0.5f, Camera.main.nearClipPlane));
+		array_allPlayersInfos [_i_idMyPlayerInGame].mapPlayer = GameObject.Instantiate (GlobalVariables.GO_MAP, v3_posMap, Quaternion.identity) as GameObject;
 	}
 
 	// Update is called once per frame
