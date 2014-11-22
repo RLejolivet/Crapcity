@@ -12,19 +12,18 @@ public class Map {
 	public int terrainSize ()
 	{
 		if (terrain != null)
-			return (terrain.Count());
-		return -1;
+			return (terrain.Count);
+		return -1; 
 	}		
 			
 			
 	public Map(int nbCases)
 	{
-		Map map = new List<Case>();
-		for (i=0; i < nbCases; i++)
+		terrain = new List<Case>();
+		for (int i=0; i < nbCases; i++)
 		{
-			map.Add(Case());
+			terrain.Add(new Case());
 		}
-		return map;
 	}
 	
 	

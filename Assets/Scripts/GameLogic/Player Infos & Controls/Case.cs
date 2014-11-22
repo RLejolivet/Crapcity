@@ -57,7 +57,7 @@ public class Case {
 					contains = Possibility.Nothing;
 					// Augmenter le nombre de déchets du côté de player 
 					// A FAIRE
-					if (bat.release)
+					if (BuildingFactory.Instance.release(bat))
 						bat = null;
 					return true;
 					break;
@@ -65,7 +65,7 @@ public class Case {
 					contains = Possibility.Waste;
 					// Augmenter le nombre de déchets du côté de player 
 					// A FAIRE
-					if (bat.release)
+					if (BuildingFactory.Instance.release(bat))
 					{
 						bat = null;
 						return true;
