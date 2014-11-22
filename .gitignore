@@ -61,3 +61,5 @@ Temporary Items
 /Assets/Scripts/GameLogic/*.meta
 /Assets/Scenes/*.meta
 /Assets/MasterServer/*.meta
+/*.sln
+/*.csproj
