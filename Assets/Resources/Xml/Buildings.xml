@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Datatable xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<building_template>
+	  <name>Décharge</name>
+	  <cost>
+		<Key>Positif</Key>
+		<Value>150</Value>
+	  </cost>
+	  <incomes>
+		<Key>Positif</Key>
+		<Value>0</Value>
+		<Key>Negatif</Key>
+		<Value>0</Value>
+	  </incomes>
+	  <trade>0</trade>
+	  <buildTime>2</buildTime>
+	  <storage>150</storage>
+	  <description>Augmente la capacité de stockage de déchets de la case de 150.</description>
+	  <sprite_path>Sprites/Décharge.png</sprite_path>
+	</building_template>
+
+	<building_template>
+	  <name>Usine</name>
+	  <cost>
+		<Key>Positif</Key>
+		<Value>100</Value>
+	  </cost>
+	  <incomes>
+		<Key>Positif</Key>
+		<Value>5</Value>
+		<Key>Negatif</Key>
+		<Value>2</Value>
+	  </incomes>
+	  <trade>0</trade>
+	  <buildTime>2</buildTime>
+	  <storage>-100</storage>
+	  <description>Produit des materiaux et rejette des déchets.</description>
+	  <sprite_path>Sprites/Usine.png</sprite_path>
+	</building_template>
+
+	<building_template>
+	  <name>Recycleur</name>
+	  <cost>
+		<Key>Positif</Key>
+		<Value>140</Value>
+	  </cost>
+	  <incomes>
+		<Key>Positif</Key>
+		<Value>1</Value>
+		<Key>Negatif</Key>
+		<Value>-1</Value>
+	  </incomes>
+	  <trade>0</trade>
+	  <buildTime>2</buildTime>
+	  <storage>-100</storage>
+	  <description>Transforme les déchets en materiaux.</description>
+	  <sprite_path>Sprites/Recycleur.png</sprite_path>
+	</building_template>
+
+	<building_template>
+	  <name>Transporteur</name>
+	  <cost>
+		<Key>Positif</Key>
+		<Value>140</Value>
+	  </cost>
+	  <incomes>
+		<Key>Positif</Key>
+		<Value>0</Value>
+		<Key>Negatif</Key>
+		<Value>0</Value>
+	  </incomes>
+	  <trade>1</trade>
+	  <max_trade>100</max_trade>
+	  <buildTime>2</buildTime>
+	  <storage>-100</storage>
+	  <description>Permet d'envoyer vos déchets chez votre adversaire.</description>
+	  <sprite_path>Sprites/Transporteur.png</sprite_path>
+	</building_template>
+
+	<building_template>
+	  <name>Stand de hack</name>
+	  <cost>
+		<Key>Positif</Key>
+		<Value>180</Value>
+	  </cost>
+	  <incomes>
+		<Key>Positif</Key>
+		<Value>0</Value>
+	  </incomes>
+	  <trade>0</trade>
+	  <buildTime>2</buildTime>
+	  <storage>-100</storage>
+	  <description>Permet de prendre regulierement le contrôle de la base enemie.</description>
+	  <sprite_path>Sprites/Stand_de_hack.png</sprite_path>
+	</building_template>
+</Datatable>

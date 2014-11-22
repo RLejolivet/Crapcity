@@ -39,6 +39,21 @@ public class Map {
 		return null;
 	}
 	
+	public void getResources(Dictionary<string, float> dic_resourcesPlayer)
+	{
+		if (terrain != null)
+		{
+			foreach(Case c in terrain)
+			{
+				c.getResources(dic_resourcesPlayer);
+			}
+		}
+		else 
+		{
+			Debug.Log("terrain non initialisé");
+		}
+	}
+	
 	public bool destroyBuildOnCase(int i)
 	{
 		if (terrain.Count > i)
