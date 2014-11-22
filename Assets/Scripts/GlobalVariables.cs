@@ -12,6 +12,9 @@ public class GlobalVariables : MonoBehaviour {
 	public static GameInfo GO_GAMEINFO;
 	public GameInfo go_gameInfo;
 
+	public static Texture2D TEX_TEXTURE_TEST;
+	public Texture2D tex_textureTest;
+
 	// Use this for initialization
 	void Start () {
 
@@ -20,5 +23,7 @@ public class GlobalVariables : MonoBehaviour {
 		F_FULL_HEALTH_PLAYER = f_fullHealthPlayer;
 
 		GO_GAMEINFO = go_gameInfo;
+
+		TEX_TEXTURE_TEST = tex_textureTest;
 	}
 }
