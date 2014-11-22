@@ -94,6 +94,13 @@ public class BuildingTemplate {
         set;
     }
 
+    [XmlElement("max_trade")]
+    public float Max_Trade
+    {
+        get;
+        set;
+    }
+
     [XmlElement("buildTime")]
     public float BuildTime
     {
