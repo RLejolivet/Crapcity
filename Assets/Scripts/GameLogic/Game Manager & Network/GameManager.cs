@@ -149,6 +149,7 @@ public class GameManager: MonoBehaviour {
                 if (i_idMyPlayerInGame  == i.i_idPlayerInGame)
                 {
                     i.go_player.GetComponent<PlayerAvatar>().updateResource();
+                    //i.go_player.GetComponent<PlayerAvatar>().getSendWaste();
                 }
             }
         }
