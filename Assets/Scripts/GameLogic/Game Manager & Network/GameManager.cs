@@ -111,6 +111,7 @@ public class GameManager: MonoBehaviour {
 
 	public void createMap(int _i_idMyPlayerInGame)
 	{
+
 		array_allPlayersInfos [_i_idMyPlayerInGame].mapPlayer = GameObject.Instantiate (GlobalVariables.GO_MAP, new Vector3(-2, 0, 0), Quaternion.identity) as GameObject;
 	}
 
