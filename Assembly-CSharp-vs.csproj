@@ -56,7 +56,6 @@
      <Compile Include="Assets\Scripts\GameLogic\Game Manager &amp; Network\GameManager.cs" />
      <Compile Include="Assets\Scripts\GameLogic\Game Manager &amp; Network\GlobalVariables.cs" />
      <Compile Include="Assets\Scripts\GameLogic\Player Infos &amp; Controls\Case.cs" />
-     <Compile Include="Assets\Scripts\GameLogic\Player Infos &amp; Controls\InputController.cs" />
      <Compile Include="Assets\Scripts\GameLogic\Player Infos &amp; Controls\Map.cs" />
      <Compile Include="Assets\Scripts\GameLogic\Player Infos &amp; Controls\PlayerAvatar.cs" />
      <Compile Include="Assets\Scripts\Utilities\Enums\EnumEvent.cs" />
