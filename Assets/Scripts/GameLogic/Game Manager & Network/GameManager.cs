@@ -5,6 +5,8 @@ using System.Collections.Generic;
 
 public class GameManager: MonoBehaviour {
 
+	public GUITexture guitex_buttonSearch;
+
 	private int i_maxNumPlayers = 1;
 
 	private string[] sArray_nameOfAllPlayers;
@@ -127,12 +129,34 @@ public class GameManager: MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-
+		if(guitex_buttonSearch.HitTest(Input.mousePosition))
+		{
+			if(Input.GetMouseButton(0))
+			{
+				if(Input.GetMouseButtonDown(0))
+				{
+					guitex_buttonSearch.texture = GlobalVariables.ARRAY_TEXTURE_BUTTON_SEARCH[2];
+				}
+			}
+			else
+			{
+				guitex_buttonSearch.texture = GlobalVariables.ARRAY_TEXTURE_BUTTON_SEARCH[1];
+			}
+		}
+		else
+		{
+			guitex_buttonSearch.texture = GlobalVariables.ARRAY_TEXTURE_BUTTON_SEARCH[0];
+		}		
 	}
 
-	void onGUI()
+	void OnGUI()
 	{
+		Vector3 v3_posButtonSearch = Camera.main.ScreenToWorldPoint (new Vector3(Screen.width * 0.3f, Screen.height * 0.2f, Camera.main.nearClipPlane));
 
+		if(GUI.Button(new Rect(500, 25, 150, 30), "Back"))
+		{
+			b_quitGame = true;
+		}
 	}
 
 	void OnPlayerDisconnected(NetworkPlayer player)
@@ -297,16 +321,6 @@ public class GameManager: MonoBehaviour {
 			}
 		}
 	}
-
-	void OnGUI()
-	{
-		if(GUI.Button(new Rect(500, 25, 150, 30), "Back"))
-		{
-			b_quitGame = true;
-		}
-	}
-
-
 }
 
 
