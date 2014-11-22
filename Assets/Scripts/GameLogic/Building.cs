@@ -30,4 +30,18 @@ public class Building {
 		return s_nameBuilding;
 	}
 
+	public void getResources(Dictionary<string, float> total)
+	{
+		foreach(KeyValuePair<string, float> inc in this.dic_incomes)
+			{
+				if (total.ContainsKey(inc.Key))
+				{
+					total[inc.Key] += inc.Value;
+				}
+				else 
+				{
+					total.Add(inc.Key, inc.Value);
+				}
+			}
+	}
 }

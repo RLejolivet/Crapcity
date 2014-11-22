@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class PlayerAvatar : MonoBehaviour {
+	// We can choose the size of a map
+	[SerializeField]
+	private int sizeMap;
 	
 	private int i_idThisPlayerInGame = -1;
 	private int i_idMyPlayerInGame = -2;  //for avoid bugs in Update() of InputController, use different number with i_idThisPlayerInGame
@@ -22,11 +25,18 @@ public class PlayerAvatar : MonoBehaviour {
 		initMap ();
 	}
 
+	// initialization of the map with sizeMap building emplacement 
 	public void initMap ()
 	{
-
+		map_myPlayer = new Map(sizeMap);
 	}
 
+	// Upgrade the number of resources that this players owner
+	public void updateResource()
+	{
+		map_myPlayer.getResources(dic_resourcesPlayer);
+	}
+	
 	public int getIdThisPlayerInGame()
 	{
 		return i_idThisPlayerInGame;

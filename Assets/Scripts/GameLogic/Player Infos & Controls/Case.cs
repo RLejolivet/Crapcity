@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Case {
 
@@ -85,4 +86,12 @@ public class Case {
 			}
 	}
 	
+	
+	public void getResources(Dictionary<string, float> total)
+	{
+		if (bat != null)
+		{
+			bat.getResources(total);
+		}
+	}
 }
