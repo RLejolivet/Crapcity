@@ -11,7 +11,9 @@ public class GameManager: MonoBehaviour {
 	public GUIText guitex_numMat;
 	public GUIText guitex_numDec;
 	public GUITexture guitex_map;
-	public GUITexture[] guitex_caseContainer = new GUITexture[6];
+	public GUITexture[] guitex_caseContainer;
+	public GUITexture[] guitex_buildingContainer;
+	public GUIText guitex_buildingDescription;
 
 	private int i_maxNumPlayers = 1;
 
@@ -37,6 +39,7 @@ public class GameManager: MonoBehaviour {
 	}
 
     private int frame;
+    private bool is_sending = true;
 
 	private PlayerInfo[] array_allPlayersInfos;
 	private int i_idMyPlayerInGame = -1;
@@ -149,6 +152,7 @@ public class GameManager: MonoBehaviour {
                 if (i_idMyPlayerInGame  == i.i_idPlayerInGame)
                 {
                     i.go_player.GetComponent<PlayerAvatar>().updateResource();
+                    i.go_player.GetComponent<PlayerAvatar>().getSendWastes(is_sending);
                 }
             }
         }

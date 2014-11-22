@@ -14,7 +14,8 @@ public class PlayerAvatar : MonoBehaviour {
 	private string s_namePlayer = null;
 	private Map map_myPlayer;
 	private Dictionary<string, float> dic_resourcesPlayer = new Dictionary<string, float>();
-
+	private float readyToSend = 0;
+	
 	public void initThisPlayer(int _i_idThisPlayerInGame, int _i_idMyPlayerInGame, int _i_sidePlayer, string _s_namePlayer, List<Resources> listResources)
 	{
 		i_idThisPlayerInGame = _i_idThisPlayerInGame;
@@ -49,6 +50,33 @@ public class PlayerAvatar : MonoBehaviour {
 	public void updateResource()
 	{
 		map_myPlayer.getResources(dic_resourcesPlayer);
+	}
+	
+	
+	// Count the n° of waste items ready to be sent
+	public void getSendWastes(bool stock)
+	{
+		float readyToSend = map_myPlayer.getSendWastes(stock);
+		if (readyToSend > dic_resourcesPlayer["Negatif"])
+		{
+			readyToSend = dic_resourcesPlayer["Negatif"];
+		}	
+		if (this.networkView.isMine)
+		{
+			networkView.RPC("sendWaste", RPCMode.OthersBuffered, readyToSend);	
+			dic_resourcesPlayer["Negatif"] -= readyToSend;
+		}
+		else
+		{
+			// shouldn't happen
+			Debug.Log("Try to sendWaste when not allowed to");
+		}
+	}
+	
+	// Send all the waste available to be sent
+[RPC]	public void sendWaste(float qty)
+	{
+		dic_resourcesPlayer["Negatif"] += qty;
 	}
 	
 	public int getIdThisPlayerInGame()
