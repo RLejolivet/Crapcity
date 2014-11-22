@@ -25,6 +25,7 @@ public class GameManager: MonoBehaviour {
 		public string s_playerName = null;
 		public int i_sidePlayer = -1; // for using in the future: player VS player
 		public GameObject go_player = null;
+		public Map go_map = null;
 	}
 
 	private PlayerInfo[] array_allPlayersInfos;
@@ -79,7 +80,7 @@ public class GameManager: MonoBehaviour {
 			array_allPlayersInfos[i].s_playerName = sArray_nameOfAllPlayers[i];
 			array_allPlayersInfos[i].i_sidePlayer = iArray_sideOfAllPlayers[i];
 			array_allPlayersInfos[i].go_player = null;
-			array_allPlayersInfos[i].mapPlayer = null;
+			array_allPlayersInfos[i].go_map = null;
 
 			if(iArray_idOfAllPlayers[i] == int.Parse(Network.player.ToString()))
 			{
@@ -120,8 +121,9 @@ public class GameManager: MonoBehaviour {
 
 	public void createMap(int _i_idMyPlayerInGame)
 	{
-
-		array_allPlayersInfos [_i_idMyPlayerInGame].mapPlayer = GameObject.Instantiate (GlobalVariables.GO_MAP, new Vector3(-2, 0, 0), Quaternion.identity) as GameObject;
+		Vector3 v3_posMap = Camera.main.ScreenToWorldPoint (new Vector3(Screen.width * 0.3f, Screen.height * 0.5f, Camera.main.nearClipPlane));
+        array_allPlayersInfos[_i_idMyPlayerInGame].go_player.GetComponent<PlayerAvatar>().initMap();
+        array_allPlayersInfos[_i_idMyPlayerInGame].go_map = array_allPlayersInfos[_i_idMyPlayerInGame].go_player.GetComponent<PlayerAvatar>().getMap();
 	}
 
 	// Update is called once per frame
@@ -288,7 +290,7 @@ public class GameManager: MonoBehaviour {
 			array_allPlayersInfos[_i_idUpdatePlayerInGame].i_idPlayerInNetwork = -1;
 			array_allPlayersInfos[_i_idUpdatePlayerInGame].s_playerName = null;
 			array_allPlayersInfos[_i_idUpdatePlayerInGame].i_sidePlayer = -1;
-			array_allPlayersInfos[_i_idUpdatePlayerInGame].mapPlayer = null;
+			array_allPlayersInfos[_i_idUpdatePlayerInGame].go_map = null;
 
 			if(array_allPlayersInfos[_i_idUpdatePlayerInGame].go_player != null)
 			{
