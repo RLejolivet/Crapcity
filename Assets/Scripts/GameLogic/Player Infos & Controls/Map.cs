@@ -9,22 +9,22 @@ public class Map {
 	 **/
 
 	private List<Case> terrain;
-	public int Terrain 
+	public int terrainSize ()
 	{
-		get 
+		if (terrain != null)
+			return (terrain.Count());
+		return -1;
+	}		
+			
+			
+	public Map(int nbCases)
+	{
+		Map map = new List<Case>();
+		for (i=0; i < nbCases; i++)
 		{
-			if (terrain != null)
-				return (terrain.Count);
-			else
-				return -1;
+			map.Add(Case());
 		}
-		set
-		{
-			for (int i=0; i<value; i++)
-			{
-				terrain.Add(new Case());  // create the beginning base and set the number of emplacement
-			}
-		}
+		return map;
 	}
 	
 	
@@ -33,6 +33,23 @@ public class Map {
 	 **/
 	public Case getCase(int i)
 	{
-		return terrain[i];
+		if (terrain.Count > i)
+		{
+			return terrain[i];
+		}
+		return null;
+	}
+	
+	public bool destroyBuildOnCase(int i)
+	{
+		if (terrain.Count > i)
+		{
+			return (terrain[i].destroyBuilding());
+		}
+		else 
+		{
+			Debug.Log("Fail to destroy building on compartment : " + i);
+			return false;
+		}
 	}
 }
