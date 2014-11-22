@@ -390,10 +390,14 @@ public class GUIManager : MonoBehaviour {
 	private void showMainMenu()
 	{
 		GUI.BeginGroup (r_menuAreaNomalized);
+
+		//GUI.DrawTexture(r_soloModeButton, GlobalVariables.TEX_TEXTURE_TEST);
+		//if(GUI.Button(r_soloModeButton, GlobalVariables.TEX_TEXTURE_TEST))
 		
         /** No single player option in this game
 		if(GUI.Button(r_soloModeButton, "Solo"))
 		{
+
 			enum_menuType = Enum_menuType.SoloMenu;
 			enum_playMode = Enum_playMode.Solo;
 
