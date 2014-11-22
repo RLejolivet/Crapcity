@@ -39,6 +39,7 @@ public class GameManager: MonoBehaviour {
 	}
 
     private int frame;
+    private bool is_sending = true;
 
 	private PlayerInfo[] array_allPlayersInfos;
 	private int i_idMyPlayerInGame = -1;
@@ -151,6 +152,7 @@ public class GameManager: MonoBehaviour {
                 if (i_idMyPlayerInGame  == i.i_idPlayerInGame)
                 {
                     i.go_player.GetComponent<PlayerAvatar>().updateResource();
+                    i.go_player.GetComponent<PlayerAvatar>().getSendWastes(is_sending);
                 }
             }
         }

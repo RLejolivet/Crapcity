@@ -92,4 +92,21 @@ public class Case {
 			bat.getResources(total);
 		}
 	}
+	
+	public float getSendWastes(bool stock)
+	{
+		if (bat != null)
+		{
+			if (stock)
+			{
+				bat.f_current_stock += bat.getF_trade;
+				if (bat.f_current_stock >= bat.getF_max_trade)
+				{
+					bat.f_current_stock = bat.getF_max_trade;
+				}
+			}
+			return bat.f_current_stock;
+		}
+		return 0;
+	}
 }

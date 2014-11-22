@@ -57,6 +57,23 @@ public class Map {
 		}
 	}
 	
+	public float getSendWastes(bool stock)
+	{
+		float ret = 0f;
+		if (terrain != null)
+		{
+			foreach(Case c in terrain)
+			{
+				ret += c.getSendWastes(stock);
+			}
+		}
+		else 
+		{
+			Debug.Log("terrain non initialisé");
+		}
+		return (ret);
+	}
+
 [RPC]	public bool destroyBuildOnCase(int i)
 	{
         if (nv.isMine)
