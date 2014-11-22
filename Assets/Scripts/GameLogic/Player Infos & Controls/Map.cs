@@ -33,6 +33,6 @@ public class Map {
 	 **/
 	public Case getCase(int i)
 	{
-		return terrain.Item(i);
+		return terrain[i];
 	}
 }
