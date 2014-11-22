@@ -12,8 +12,8 @@ public class GlobalVariables : MonoBehaviour {
 	public static GameInfo GO_GAMEINFO;
 	public GameInfo go_gameInfo;
 
-	public static Texture2D TEX_TEXTURE_TEST;
-	public Texture2D tex_textureTest;
+	public static GameObject GO_MAP;
+	public GameObject go_map;
 
 	// Use this for initialization
 	void Start () {
@@ -24,6 +24,6 @@ public class GlobalVariables : MonoBehaviour {
 
 		GO_GAMEINFO = go_gameInfo;
 
-		TEX_TEXTURE_TEST = tex_textureTest;
+		GO_MAP = go_map;
 	}
 }

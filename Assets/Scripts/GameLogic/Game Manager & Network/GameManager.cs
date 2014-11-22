@@ -23,17 +23,13 @@ public class GameManager: MonoBehaviour {
 		public int i_idPlayerInGame = -1;
 		public int i_idPlayerInNetwork = -1;
 		public string s_playerName = null;
-//		public float f_healthCurrentLife = -1;
 		public int i_sidePlayer = -1; // for using in the future: player VS player
 		public GameObject go_player = null;
-
 	}
 
 	private PlayerInfo[] array_allPlayersInfos;
 	private int i_idMyPlayerInGame = -1;
 	private int i_idMyPlayerInNetwork = -1;
-
-	private InputController inputController;
 
 	private bool b_quitGame = false;   //player can set this in the inputController when clicking the quitGame button
 
@@ -48,6 +44,7 @@ public class GameManager: MonoBehaviour {
     {
         initResources();
 		initGame ();
+		initMap (i_idMyPlayerInGame);
 	}
 
     private void initResources()
@@ -59,8 +56,6 @@ public class GameManager: MonoBehaviour {
 
 	private void initGame()
 	{
-		inputController = FindObjectOfType (typeof(InputController)) as InputController;
-
 		gameInfo = FindObjectOfType (typeof(GameInfo)) as GameInfo;
 		i_maxNumPlayers = gameInfo.I_maxNumPlayers;
 		playMode = gameInfo.Enum_playMode;
@@ -82,9 +77,9 @@ public class GameManager: MonoBehaviour {
 			array_allPlayersInfos[i].i_idPlayerInGame = i;
 			array_allPlayersInfos[i].i_idPlayerInNetwork = iArray_idOfAllPlayers[i];
 			array_allPlayersInfos[i].s_playerName = sArray_nameOfAllPlayers[i];
-//			array_allPlayersInfos[i].f_healthCurrentLife = GlobalVariables.F_FULL_HEALTH_PLAYER;   //need assign value after
 			array_allPlayersInfos[i].i_sidePlayer = iArray_sideOfAllPlayers[i];
 			array_allPlayersInfos[i].go_player = null;
+			array_allPlayersInfos[i].mapPlayer = null;
 
 			if(iArray_idOfAllPlayers[i] == int.Parse(Network.player.ToString()))
 			{
@@ -103,13 +98,42 @@ public class GameManager: MonoBehaviour {
 
 		createPlayer ();
 	}
+	
+	public void initMap(int _i_idMyPlayerInGame)
+	{
+		networkView.RPC ("initMapRPC", RPCMode.All, _i_idMyPlayerInGame);
+	}
+
+	[RPC]
+	public void initMapRPC(int _i_idMyPlayerInGame)
+	{
+		initMapLocal (_i_idMyPlayerInGame);
+	}
+
+	public void initMapLocal(int _i_idMyPlayerInGame)
+	{
+		if(_i_idMyPlayerInGame == i_idMyPlayerInGame)
+		{
+			createMap (_i_idMyPlayerInGame);
+		}
+	}
+
+	public void createMap(int _i_idMyPlayerInGame)
+	{
+
+		array_allPlayersInfos [_i_idMyPlayerInGame].mapPlayer = GameObject.Instantiate (GlobalVariables.GO_MAP, new Vector3(-2, 0, 0), Quaternion.identity) as GameObject;
+	}
 
 	// Update is called once per frame
 	void Update () {
 
 	}
 
-	
+	void onGUI()
+	{
+
+	}
+
 	void OnPlayerDisconnected(NetworkPlayer player)
 	{
 		Network.DestroyPlayerObjects (player);
@@ -159,7 +183,6 @@ public class GameManager: MonoBehaviour {
 		}
 		else
 		{
-//			array_allPlayersInfos[i_idMyPlayerInGame].f_healthCurrentLife = GlobalVariables.F_FULL_HEALTH_PLAYER;
 //			myPlayer = GameObject.Instantiate(GlobalVariables.GO_PLAYER, new Vector3(-25f, 2f, 0f), Quaternion.identity) as GameObject;
 			array_allPlayersInfos[i_idMyPlayerInGame].go_player =
 				GameObject.Instantiate(GlobalVariables.GO_PLAYER, new Vector3(-25f, 2f, 0f), Quaternion.identity) as GameObject;
@@ -170,7 +193,6 @@ public class GameManager: MonoBehaviour {
 	{
 		if(Network.isServer)
 		{
-//			array_allPlayersInfos[_i_idPlayerInGame].f_healthCurrentLife = GlobalVariables.F_FULL_HEALTH_PLAYER;
 
 			if(array_allPlayersInfos[_i_idPlayerInGame].go_player != null)
 			{
@@ -224,7 +246,6 @@ public class GameManager: MonoBehaviour {
 	{
 		if(Network.isClient)
 		{
-//			array_allPlayersInfos[_i_idPlayerInGame].f_healthCurrentLife = GlobalVariables.F_FULL_HEALTH_PLAYER;
 
 			if(array_allPlayersInfos[_i_idPlayerInGame].go_player != null)
 			{
@@ -266,8 +287,8 @@ public class GameManager: MonoBehaviour {
 			array_allPlayersInfos[_i_idUpdatePlayerInGame].i_idPlayerInGame = -1;
 			array_allPlayersInfos[_i_idUpdatePlayerInGame].i_idPlayerInNetwork = -1;
 			array_allPlayersInfos[_i_idUpdatePlayerInGame].s_playerName = null;
-//			array_allPlayersInfos[_i_idUpdatePlayerInGame].f_healthCurrentLife = GlobalVariables.F_FULL_HEALTH_PLAYER;   //need assign value after
 			array_allPlayersInfos[_i_idUpdatePlayerInGame].i_sidePlayer = -1;
+			array_allPlayersInfos[_i_idUpdatePlayerInGame].mapPlayer = null;
 
 			if(array_allPlayersInfos[_i_idUpdatePlayerInGame].go_player != null)
 			{
