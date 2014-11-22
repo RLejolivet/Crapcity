@@ -1,18 +1,18 @@
 ﻿using System.Xml.Serialization;
 using UnityEngine;
 
-[XmlRoot("BuildingTemplate")]
-[XmlType("LevelDescription")]
+[XmlRoot("resource")]
+[XmlType("resource")]
 public class Resources {
 
-    [XmlAttribute]
-    public string name
+    [XmlElement("name")]
+    public string Name
     {
         get;
         set;
     }
 
-    [XmlAttribute]
+    [XmlElement("sprite_path")]
     public string spritePath
     {
         get;

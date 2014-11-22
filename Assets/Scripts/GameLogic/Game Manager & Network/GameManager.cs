@@ -78,7 +78,7 @@ public class GameManager: MonoBehaviour {
 			if(iArray_idOfAllPlayers[i] == int.Parse(Network.player.ToString()))
 			{
 				i_idMyPlayerInGame = i;
-				inputController.setSidePlayer (array_allPlayersInfos[i_idMyPlayerInGame].i_sidePlayer);
+				//inputController.initMyPlayer();
 			}
 		}
 
@@ -169,7 +169,8 @@ public class GameManager: MonoBehaviour {
 			array_allPlayersInfos[_i_idPlayerInGame].go_player = 
 				GameObject.Instantiate (GlobalVariables.GO_PLAYER, new Vector3(-25f, 2f, 0f), Quaternion.identity) as GameObject;
 			
-			array_allPlayersInfos [_i_idPlayerInGame].go_player.GetComponent<PlayerAvatar> ().initThisPlayer (_i_idPlayerInGame, i_idMyPlayerInGame);
+			array_allPlayersInfos [_i_idPlayerInGame].go_player.GetComponent<PlayerAvatar> ()
+					.initThisPlayer (_i_idPlayerInGame, i_idMyPlayerInGame, iArray_sideOfAllPlayers[_i_idPlayerInGame], sArray_nameOfAllPlayers[_i_idPlayerInGame]);
 			
 			NetworkViewID viewID = Network.AllocateViewID ();
 			array_allPlayersInfos [_i_idPlayerInGame].go_player.networkView.viewID = viewID;
@@ -224,7 +225,9 @@ public class GameManager: MonoBehaviour {
 
 			array_allPlayersInfos [_i_idPlayerInGame].go_player.networkView.viewID = _viewID;
 
-			array_allPlayersInfos [_i_idPlayerInGame].go_player.GetComponent<PlayerAvatar> ().initThisPlayer (_i_idPlayerInGame, i_idMyPlayerInGame);
+			array_allPlayersInfos [_i_idPlayerInGame].go_player.GetComponent<PlayerAvatar> ()
+						.initThisPlayer (_i_idPlayerInGame, i_idMyPlayerInGame, iArray_sideOfAllPlayers[_i_idPlayerInGame],
+				                 		sArray_nameOfAllPlayers[_i_idPlayerInGame]);
 		}
 	}
 
