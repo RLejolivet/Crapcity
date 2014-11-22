@@ -33,10 +33,10 @@ public class Case {
 		{
 			switch (contains)
 			{
-				case Nothing : 
+				case Possibility.Nothing : 
 					contains = Possibility.Building;
 					break;
-				case Waste : 
+				case Possibility.Waste : 
 					contains = Possibility.BuildAndWaste;
 					bat = build;
 					break;

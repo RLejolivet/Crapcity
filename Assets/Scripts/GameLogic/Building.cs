@@ -30,37 +30,7 @@ public class Building {
 
 	// Use this for initialization
 	void Start () {
-		initBuildingEvents ();
-	}
-
-	public void initBuildingEvents()
-	{
-		if(EventManager.BuildingConstructed == null)
-		{
-			EventManager.BuildingConstructed += new BuildingEventHandler(OnBuildingConstructed);
-			while(EventManager.BuildingConstructed.GetInvocationList().Length > 1)
-			{
-				EventManager.BuildingConstructed -= new BuildingEventHandler(OnBuildingConstructed);
-			}
-		}
-		
-		if(EventManager.BuildingDestroyed == null)
-		{
-			EventManager.BuildingDestroyed += new BuildingEventHandler(OnBuildingDestroyed);
-			while(EventManager.BuildingDestroyed.GetInvocationList().Length > 1)
-			{
-				EventManager.BuildingDestroyed -= new BuildingEventHandler(OnBuildingDestroyed);
-			}
-		}
-	}
-
-	public void OnBuildingConstructed()
-	{
 
 	}
 
-	public void OnBuildingDestroyed()
-	{
-
-	}
 }

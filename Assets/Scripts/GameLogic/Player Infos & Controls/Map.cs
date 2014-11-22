@@ -14,13 +14,15 @@ public class Map {
 		get 
 		{
 			if (terrain != null)
-				return (terrain.Count());
+				return (terrain.Count);
+			else
+				return -1;
 		}
 		set
 		{
-			for (i=0; i<value; i++)
+			for (int i=0; i<value; i++)
 			{
-				terrain.Add(Case());  // create the beginning base and set the number of emplacement
+				terrain.Add(new Case());  // create the beginning base and set the number of emplacement
 			}
 		}
 	}

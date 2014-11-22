@@ -49,15 +49,19 @@
      <Compile Include="Assets\Scripts\GameLogic\Base Elements (XML Serializable)\BuildingTemplate.cs" />
      <Compile Include="Assets\Scripts\GameLogic\Base Elements (XML Serializable)\Resources.cs" />
      <Compile Include="Assets\Scripts\GameLogic\Base Elements (XML Serializable)\Techno.cs" />
-     <Compile Include="Assets\Scripts\GameLogic\Base Elements (XML Serializable)\XmlHelpers.cs" />
      <Compile Include="Assets\Scripts\GameLogic\Building.cs" />
-     <Compile Include="Assets\Scripts\GameLogic\EventManager\EventManager.cs" />
+     <Compile Include="Assets\Scripts\GameLogic\Game Manager &amp; Network\BuildingFactory.cs" />
      <Compile Include="Assets\Scripts\GameLogic\Game Manager &amp; Network\GUIManager.cs" />
      <Compile Include="Assets\Scripts\GameLogic\Game Manager &amp; Network\GameInfo.cs" />
      <Compile Include="Assets\Scripts\GameLogic\Game Manager &amp; Network\GameManager.cs" />
      <Compile Include="Assets\Scripts\GameLogic\Game Manager &amp; Network\GlobalVariables.cs" />
+     <Compile Include="Assets\Scripts\GameLogic\Player Infos &amp; Controls\Case.cs" />
      <Compile Include="Assets\Scripts\GameLogic\Player Infos &amp; Controls\InputController.cs" />
+     <Compile Include="Assets\Scripts\GameLogic\Player Infos &amp; Controls\Map.cs" />
      <Compile Include="Assets\Scripts\GameLogic\Player Infos &amp; Controls\PlayerAvatar.cs" />
+     <Compile Include="Assets\Scripts\Utilities\Enums\EnumEvent.cs" />
+     <Compile Include="Assets\Scripts\Utilities\Events\EventManager.cs" />
+     <Compile Include="Assets\Scripts\Utilities\Serialization\XmlHelpers.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
