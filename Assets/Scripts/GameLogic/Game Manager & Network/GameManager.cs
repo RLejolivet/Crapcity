@@ -30,6 +30,8 @@ public class GameManager: MonoBehaviour {
 		public Map go_map = null;
 	}
 
+    private int frame;
+
 	private PlayerInfo[] array_allPlayersInfos;
 	private int i_idMyPlayerInGame = -1;
 	private int i_idMyPlayerInNetwork = -1;
@@ -130,7 +132,26 @@ public class GameManager: MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if(guitex_buttonSearch.HitTest(Input.mousePosition))
+        /**
+         * Time management
+         **/
+        frame++;
+        if (frame % 60 == 0)
+        {
+            foreach(PlayerInfo i in array_allPlayersInfos)
+            {
+                if (i_idMyPlayerInGame  == i.i_idPlayerInGame)
+                {
+                    i.go_player.GetComponent<PlayerAvatar>().updateResource();
+                }
+            }
+        }
+
+
+        /** 
+         * Player input management
+         **/
+        if (guitex_buttonSearch.HitTest(Input.mousePosition))
 		{
 			if(Input.GetMouseButton(0))
 			{
