@@ -10,6 +10,8 @@ public class GameManager: MonoBehaviour {
 	public GUITexture guitex_iconDechets;
 	public GUIText guitex_numMat;
 	public GUIText guitex_numDec;
+	public GUITexture guitex_map;
+	public GUITexture[] guitex_caseContainer = new GUITexture[6];
 
 	private int i_maxNumPlayers = 1;
 
@@ -130,8 +132,6 @@ public class GameManager: MonoBehaviour {
 		Vector3 v3_posMap = Camera.main.ScreenToWorldPoint (new Vector3(Screen.width * 0.3f, Screen.height * 0.5f, Camera.main.nearClipPlane));
         array_allPlayersInfos[_i_idMyPlayerInGame].go_player.GetComponent<PlayerAvatar>().initMap();
         array_allPlayersInfos[_i_idMyPlayerInGame].go_map = array_allPlayersInfos[_i_idMyPlayerInGame].go_player.GetComponent<PlayerAvatar>().getMap();
-		GameObject.Instantiate (GlobalVariables.GO_MAP, v3_posMap, Quaternion.identity);
-
 	}
 
 	// Update is called once per frame
