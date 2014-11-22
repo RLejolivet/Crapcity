@@ -1,4 +1,5 @@
-﻿using System.Xml.Serialization;
+﻿using UnityEngine;
+using System.Xml.Serialization;
 using System.Collections.Generic;
 
 
@@ -7,18 +8,18 @@ using System.Collections.Generic;
  * Imported from BuildingFactory, used to instantiate the Building class
  **/
 
-[XmlRoot("BuildingTemplate")]
-[XmlType("LevelDescription")]
+[XmlRoot("building_template")]
+[XmlType("building_template")]
 public class BuildingTemplate {
 
-    [XmlElement("Name")]
+    [XmlElement("name")]
     public string Name
     {
         get;
         set;
     }
 
-    [XmlElement("Cost")]
+    [XmlElement("cost")]
     public List<KeyValuePair<string, float>> ProxyCost
     {
         get
@@ -52,7 +53,7 @@ public class BuildingTemplate {
         }
     }
 
-    [XmlElement("Incomes")]
+    [XmlElement("incomes")]
     public List<KeyValuePair<string, float>> ProxyIncomes
     {
         get
@@ -86,32 +87,41 @@ public class BuildingTemplate {
         }
     }
 
-    [XmlElement("Trade")]
+    [XmlElement("trade")]
     public float Trade
     {
         get;
         set;
     }
 
-    [XmlElement("BuildTime")]
+    [XmlElement("buildTime")]
     public float BuildTime
     {
         get;
         set;
     }
 
-    [XmlElement("Storage")]
+    [XmlElement("storage")]
     public float Storage
     {
         get;
         set;
     }
 
-    [XmlElement("Description")]
+    [XmlElement("description")]
     public string Description
     {
         get;
         set;
     }
+
+    [XmlElement("sprite_path")]
+    public string spritePath
+    {
+        get;
+        set;
+    }
+
+    private Sprite icon;
 
 }
