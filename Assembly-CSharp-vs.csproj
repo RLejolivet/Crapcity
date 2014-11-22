@@ -47,16 +47,18 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Building.cs" />
-     <Compile Include="Assets\Scripts\GUIManager.cs" />
-     <Compile Include="Assets\Scripts\GUIManagerInGame.cs" />
-     <Compile Include="Assets\Scripts\GameInfo.cs" />
-     <Compile Include="Assets\Scripts\GameManager.cs" />
+     <Compile Include="Assets\Scripts\GameLogic\Base Elements (XML Serializable)\BuildingTemplate.cs" />
+     <Compile Include="Assets\Scripts\GameLogic\Base Elements (XML Serializable)\Resources.cs" />
+     <Compile Include="Assets\Scripts\GameLogic\Base Elements (XML Serializable)\Techno.cs" />
+     <Compile Include="Assets\Scripts\GameLogic\Base Elements (XML Serializable)\XmlHelpers.cs" />
+     <Compile Include="Assets\Scripts\GameLogic\Game Manager &amp; Network\GUIManager.cs" />
+     <Compile Include="Assets\Scripts\GameLogic\Game Manager &amp; Network\GameInfo.cs" />
+     <Compile Include="Assets\Scripts\GameLogic\Game Manager &amp; Network\GameManager.cs" />
+     <Compile Include="Assets\Scripts\GameLogic\Game Manager &amp; Network\GlobalVariables.cs" />
+     <Compile Include="Assets\Scripts\GameLogic\Player Infos &amp; Controls\InputController.cs" />
+     <Compile Include="Assets\Scripts\GameLogic\Player Infos &amp; Controls\PlayerAvatar.cs" />
      <Compile Include="Assets\Scripts\GameManager_V2.cs" />
-     <Compile Include="Assets\Scripts\GlobalVariables.cs" />
-     <Compile Include="Assets\Scripts\InputController.cs" />
      <Compile Include="Assets\Scripts\LevelDescription.cs" />
-     <Compile Include="Assets\Scripts\PlayerAvatar.cs" />
-     <Compile Include="Assets\Scripts\XmlHelpers.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GUIManagerInGame : MonoBehaviour {
+public class Techno : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
