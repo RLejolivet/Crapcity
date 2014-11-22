@@ -20,6 +20,7 @@ $RECYCLE.BIN/
 #VStudio project files
 *.csproj
 *.sln
+*.suo
 
 # =========================
 # Operating System Files
