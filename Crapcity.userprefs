@@ -2,8 +2,9 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\GameLogic\Building.cs">
     <Files>
-      <File FileName="Assets\Scripts\GameLogic\Base Elements (XML Serializable)\BuildingTemplate.cs" Line="19" Column="13" />
-      <File FileName="Assets\Scripts\GameLogic\Building.cs" Line="19" Column="15" />
+      <File FileName="Assets\Scripts\GameLogic\Base Elements (XML Serializable)\BuildingTemplate.cs" Line="23" Column="6" />
+      <File FileName="Assets\Scripts\GameLogic\Base Elements (XML Serializable)\Resources.cs" Line="24" Column="1" />
+      <File FileName="Assets\Scripts\GameLogic\Building.cs" Line="22" Column="21" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

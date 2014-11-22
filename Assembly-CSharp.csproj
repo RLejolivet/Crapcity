@@ -51,6 +51,7 @@
      <Compile Include="Assets\Scripts\GameLogic\Base Elements (XML Serializable)\Techno.cs" />
      <Compile Include="Assets\Scripts\GameLogic\Base Elements (XML Serializable)\XmlHelpers.cs" />
      <Compile Include="Assets\Scripts\GameLogic\Building.cs" />
+     <Compile Include="Assets\Scripts\GameLogic\EventManager\EventManager.cs" />
      <Compile Include="Assets\Scripts\GameLogic\Game Manager &amp; Network\GUIManager.cs" />
      <Compile Include="Assets\Scripts\GameLogic\Game Manager &amp; Network\GameInfo.cs" />
      <Compile Include="Assets\Scripts\GameLogic\Game Manager &amp; Network\GameManager.cs" />
