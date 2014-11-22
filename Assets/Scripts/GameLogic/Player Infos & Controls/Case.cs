@@ -60,7 +60,6 @@ public class Case {
 					if (BuildingFactory.Instance.release(bat))
 						bat = null;
 					return true;
-					break;
 				case Possibility.BuildAndWaste : 
 					contains = Possibility.Waste;
 					// Augmenter le nombre de déchets du côté de player 
@@ -75,13 +74,10 @@ public class Case {
 						Debug.Log("Fail to release building");
 						return false;
 					}
-					
-					break;
 				default : 
 					// Shouldn't happen
 					Debug.Log("Nothing to be destroyed");
 					return false;
-					break;
 			}
 	}
 	

@@ -16,6 +16,7 @@ public class GameManager: MonoBehaviour {
 	private Enum_playMode playMode = Enum_playMode.Non;
 //	private GUIManager guiManager;
 	private GameInfo gameInfo;
+    private List<Resources> listResources;
 
 	private class PlayerInfo
 	{
@@ -25,6 +26,7 @@ public class GameManager: MonoBehaviour {
 //		public float f_healthCurrentLife = -1;
 		public int i_sidePlayer = -1; // for using in the future: player VS player
 		public GameObject go_player = null;
+
 	}
 
 	private PlayerInfo[] array_allPlayersInfos;
@@ -42,9 +44,18 @@ public class GameManager: MonoBehaviour {
 	}
 
 	// Use this for initialization
-	void Start () {
+    void Start()
+    {
+        initResources();
 		initGame ();
 	}
+
+    private void initResources()
+    {
+        TextAsset resourcesFile;
+        resourcesFile = (TextAsset)UnityEngine.Resources.Load("Xml/Resources");
+        listResources = XmlHelpers.LoadFromTextAsset<Resources>(resourcesFile);
+    }
 
 	private void initGame()
 	{
@@ -170,7 +181,7 @@ public class GameManager: MonoBehaviour {
 				GameObject.Instantiate (GlobalVariables.GO_PLAYER, new Vector3(-25f, 2f, 0f), Quaternion.identity) as GameObject;
 			
 			array_allPlayersInfos [_i_idPlayerInGame].go_player.GetComponent<PlayerAvatar> ()
-					.initThisPlayer (_i_idPlayerInGame, i_idMyPlayerInGame, iArray_sideOfAllPlayers[_i_idPlayerInGame], sArray_nameOfAllPlayers[_i_idPlayerInGame]);
+					.initThisPlayer (_i_idPlayerInGame, i_idMyPlayerInGame, iArray_sideOfAllPlayers[_i_idPlayerInGame], sArray_nameOfAllPlayers[_i_idPlayerInGame], listResources);
 			
 			NetworkViewID viewID = Network.AllocateViewID ();
 			array_allPlayersInfos [_i_idPlayerInGame].go_player.networkView.viewID = viewID;
@@ -227,7 +238,7 @@ public class GameManager: MonoBehaviour {
 
 			array_allPlayersInfos [_i_idPlayerInGame].go_player.GetComponent<PlayerAvatar> ()
 						.initThisPlayer (_i_idPlayerInGame, i_idMyPlayerInGame, iArray_sideOfAllPlayers[_i_idPlayerInGame],
-				                 		sArray_nameOfAllPlayers[_i_idPlayerInGame]);
+				                 		sArray_nameOfAllPlayers[_i_idPlayerInGame], listResources);
 		}
 	}
 
