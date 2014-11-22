@@ -24,12 +24,14 @@ public class GlobalVariables : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		GO_PLAYER = go_player;
+	}
 
-		F_FULL_HEALTH_PLAYER = f_fullHealthPlayer;
+    void Awake()
+    {
 
-		GO_GAMEINFO = go_gameInfo;
+        GO_PLAYER = go_player;
 
+<<<<<<< HEAD
 		ARRAY_TEXTURE_BUTTON_SEARCH = new Texture[array_textureButtonSearch.Length];
 		for(int i = 0; i < ARRAY_TEXTURE_BUTTON_SEARCH.Length; i++)
 		{
@@ -48,4 +50,18 @@ public class GlobalVariables : MonoBehaviour {
 			ATEX_DECHETTERIE[i] = aTex_Dechetterie[i];
 		}
 	}
+=======
+        F_FULL_HEALTH_PLAYER = f_fullHealthPlayer;
+
+        GO_GAMEINFO = go_gameInfo;
+
+        GO_MAP = go_map;
+
+        ARRAY_TEXTURE_BUTTON_SEARCH = new Texture[array_textureButtonSearch.Length];
+        for (int i = 0; i < ARRAY_TEXTURE_BUTTON_SEARCH.Length; i++)
+        {
+            ARRAY_TEXTURE_BUTTON_SEARCH[i] = array_textureButtonSearch[i];
+        }
+    }
+>>>>>>> origin/master
 }
