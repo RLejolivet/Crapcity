@@ -54,6 +54,7 @@ public class Map {
 		}
 	}
 	
+	
 	public bool destroyBuildOnCase(int i)
 	{
 		if (terrain.Count > i)
