@@ -6,6 +6,10 @@ using System.Collections.Generic;
 public class GameManager: MonoBehaviour {
 
 	public GUITexture guitex_buttonSearch;
+	public GUITexture guitex_iconMateriaux;
+	public GUITexture guitex_iconDechets;
+	public GUIText guitex_numMat;
+	public GUIText guitex_numDec;
 
 	private int i_maxNumPlayers = 1;
 
@@ -29,6 +33,8 @@ public class GameManager: MonoBehaviour {
 		public GameObject go_player = null;
 		public Map go_map = null;
 	}
+
+    private int frame;
 
 	private PlayerInfo[] array_allPlayersInfos;
 	private int i_idMyPlayerInGame = -1;
@@ -126,11 +132,32 @@ public class GameManager: MonoBehaviour {
 		Vector3 v3_posMap = Camera.main.ScreenToWorldPoint (new Vector3(Screen.width * 0.3f, Screen.height * 0.5f, Camera.main.nearClipPlane));
         array_allPlayersInfos[_i_idMyPlayerInGame].go_player.GetComponent<PlayerAvatar>().initMap();
         array_allPlayersInfos[_i_idMyPlayerInGame].go_map = array_allPlayersInfos[_i_idMyPlayerInGame].go_player.GetComponent<PlayerAvatar>().getMap();
+		GameObject.Instantiate (GlobalVariables.GO_MAP, v3_posMap, Quaternion.identity);
+
 	}
 
 	// Update is called once per frame
 	void Update () {
-		if(guitex_buttonSearch.HitTest(Input.mousePosition))
+        /**
+         * Time management
+         **/
+        frame++;
+        if (frame % 60 == 0)
+        {
+            foreach(PlayerInfo i in array_allPlayersInfos)
+            {
+                if (i_idMyPlayerInGame  == i.i_idPlayerInGame)
+                {
+                    i.go_player.GetComponent<PlayerAvatar>().updateResource();
+                }
+            }
+        }
+
+
+        /** 
+         * Player input management
+         **/
+        if (guitex_buttonSearch.HitTest(Input.mousePosition))
 		{
 			if(Input.GetMouseButton(0))
 			{
