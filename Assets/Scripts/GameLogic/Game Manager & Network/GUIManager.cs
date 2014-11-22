@@ -391,6 +391,7 @@ public class GUIManager : MonoBehaviour {
 	{
 		GUI.BeginGroup (r_menuAreaNomalized);
 		
+        /** No single player option in this game
 		if(GUI.Button(r_soloModeButton, "Solo"))
 		{
 			enum_menuType = Enum_menuType.SoloMenu;
@@ -401,7 +402,7 @@ public class GUIManager : MonoBehaviour {
 
 			Application.LoadLevel("Solo_Multiplayer");
 		}
-		else if(GUI.Button(r_multiModeButton, "Multiplayer"))
+		else**/ if(GUI.Button(r_multiModeButton, "Multiplayer"))
 		{
 			enum_menuType = Enum_menuType.MultiPlayerMenu;
 			enum_playMode = Enum_playMode.MultiPlayer;
