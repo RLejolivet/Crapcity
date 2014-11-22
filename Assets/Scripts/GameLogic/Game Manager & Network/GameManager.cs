@@ -25,7 +25,7 @@ public class GameManager: MonoBehaviour {
 		public string s_playerName = null;
 		public int i_sidePlayer = -1; // for using in the future: player VS player
 		public GameObject go_player = null;
-		public GameObject go_map = null;
+		public Map go_map = null;
 	}
 
 	private PlayerInfo[] array_allPlayersInfos;
@@ -122,7 +122,8 @@ public class GameManager: MonoBehaviour {
 	public void createMap(int _i_idMyPlayerInGame)
 	{
 		Vector3 v3_posMap = Camera.main.ScreenToWorldPoint (new Vector3(Screen.width * 0.3f, Screen.height * 0.5f, Camera.main.nearClipPlane));
-		array_allPlayersInfos [_i_idMyPlayerInGame].go_map = GameObject.Instantiate (GlobalVariables.GO_MAP, v3_posMap, Quaternion.identity) as GameObject;
+        array_allPlayersInfos[_i_idMyPlayerInGame].go_player.GetComponent<PlayerAvatar>().initMap();
+        array_allPlayersInfos[_i_idMyPlayerInGame].go_map = array_allPlayersInfos[_i_idMyPlayerInGame].go_player.GetComponent<PlayerAvatar>().getMap();
 	}
 
 	// Update is called once per frame

@@ -32,8 +32,18 @@ public class PlayerAvatar : MonoBehaviour {
 	// initialization of the map with sizeMap building emplacement 
 	public void initMap ()
 	{
-		map_myPlayer = new Map(sizeMap);
+        if (i_idThisPlayerInGame == i_idMyPlayerInGame)
+        {
+            map_myPlayer = new Map(sizeMap, networkView);
+        }
+        else
+            map_myPlayer = new Map(sizeMap);
 	}
+
+    public Map getMap()
+    {
+        return map_myPlayer;
+    }
 
 	// Upgrade the number of resources that this players owner
 	public void updateResource()
