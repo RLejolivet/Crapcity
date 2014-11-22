@@ -54,3 +54,10 @@ Temporary Items
 /*.sln
 /*.userprefs
 /*.csproj
+/*.sln
+/*.csproj
+/Assets/*.meta
+/Assets/Sprites/*.meta
+/Assets/Scripts/GameLogic/*.meta
+/Assets/Scenes/*.meta
+/Assets/MasterServer/*.meta

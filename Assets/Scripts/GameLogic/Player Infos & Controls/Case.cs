@@ -28,8 +28,9 @@ public class Case {
 	 * Build a building on a compartment
 	 **/
 	
-	public void build(Building build)
+	public bool build(string name)
 	{
+        Building build = BuildingFactory.Instance.create(name);
 		if (build != null)
 		{
 			switch (contains)
@@ -44,10 +45,11 @@ public class Case {
 					break;
 				default : 
 					// Shouldn't happen
-					Debug.Log("You try to build something over a building");
+					Debug.Log("You're trying to build something over a building");
 					break;
 			}
-		}	
+		}
+        return true;
 	}
 	
 	public bool destroyBuilding()

@@ -5,6 +5,8 @@ using System.Collections.Generic;
 
 public class GameManager: MonoBehaviour {
 
+	public GUITexture guitex_buttonSearch;
+
 	private int i_maxNumPlayers = 1;
 
 	private string[] sArray_nameOfAllPlayers;
@@ -25,6 +27,7 @@ public class GameManager: MonoBehaviour {
 		public string s_playerName = null;
 		public int i_sidePlayer = -1; // for using in the future: player VS player
 		public GameObject go_player = null;
+		public Map go_map = null;
 	}
 
 	private PlayerInfo[] array_allPlayersInfos;
@@ -79,7 +82,7 @@ public class GameManager: MonoBehaviour {
 			array_allPlayersInfos[i].s_playerName = sArray_nameOfAllPlayers[i];
 			array_allPlayersInfos[i].i_sidePlayer = iArray_sideOfAllPlayers[i];
 			array_allPlayersInfos[i].go_player = null;
-			array_allPlayersInfos[i].mapPlayer = null;
+			array_allPlayersInfos[i].go_map = null;
 
 			if(iArray_idOfAllPlayers[i] == int.Parse(Network.player.ToString()))
 			{
@@ -121,17 +124,40 @@ public class GameManager: MonoBehaviour {
 	public void createMap(int _i_idMyPlayerInGame)
 	{
 		Vector3 v3_posMap = Camera.main.ScreenToWorldPoint (new Vector3(Screen.width * 0.3f, Screen.height * 0.5f, Camera.main.nearClipPlane));
-		array_allPlayersInfos [_i_idMyPlayerInGame].mapPlayer = GameObject.Instantiate (GlobalVariables.GO_MAP, v3_posMap, Quaternion.identity) as GameObject;
+        array_allPlayersInfos[_i_idMyPlayerInGame].go_player.GetComponent<PlayerAvatar>().initMap();
+        array_allPlayersInfos[_i_idMyPlayerInGame].go_map = array_allPlayersInfos[_i_idMyPlayerInGame].go_player.GetComponent<PlayerAvatar>().getMap();
 	}
 
 	// Update is called once per frame
 	void Update () {
-
+		if(guitex_buttonSearch.HitTest(Input.mousePosition))
+		{
+			if(Input.GetMouseButton(0))
+			{
+				if(Input.GetMouseButtonDown(0))
+				{
+					guitex_buttonSearch.texture = GlobalVariables.ARRAY_TEXTURE_BUTTON_SEARCH[2];
+				}
+			}
+			else
+			{
+				guitex_buttonSearch.texture = GlobalVariables.ARRAY_TEXTURE_BUTTON_SEARCH[1];
+			}
+		}
+		else
+		{
+			guitex_buttonSearch.texture = GlobalVariables.ARRAY_TEXTURE_BUTTON_SEARCH[0];
+		}		
 	}
 
-	void onGUI()
+	void OnGUI()
 	{
+		Vector3 v3_posButtonSearch = Camera.main.ScreenToWorldPoint (new Vector3(Screen.width * 0.3f, Screen.height * 0.2f, Camera.main.nearClipPlane));
 
+		if(GUI.Button(new Rect(500, 25, 150, 30), "Back"))
+		{
+			b_quitGame = true;
+		}
 	}
 
 	void OnPlayerDisconnected(NetworkPlayer player)
@@ -288,7 +314,7 @@ public class GameManager: MonoBehaviour {
 			array_allPlayersInfos[_i_idUpdatePlayerInGame].i_idPlayerInNetwork = -1;
 			array_allPlayersInfos[_i_idUpdatePlayerInGame].s_playerName = null;
 			array_allPlayersInfos[_i_idUpdatePlayerInGame].i_sidePlayer = -1;
-			array_allPlayersInfos[_i_idUpdatePlayerInGame].mapPlayer = null;
+			array_allPlayersInfos[_i_idUpdatePlayerInGame].go_map = null;
 
 			if(array_allPlayersInfos[_i_idUpdatePlayerInGame].go_player != null)
 			{
@@ -296,16 +322,6 @@ public class GameManager: MonoBehaviour {
 			}
 		}
 	}
-
-	void OnGUI()
-	{
-		if(GUI.Button(new Rect(500, 25, 150, 30), "Back"))
-		{
-			b_quitGame = true;
-		}
-	}
-
-
 }
 
 
