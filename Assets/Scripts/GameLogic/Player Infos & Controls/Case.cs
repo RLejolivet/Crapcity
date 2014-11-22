@@ -2,12 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 
+public enum Possibility { Nothing, Building, Waste, BuildAndWaste };
+
 public class Case {
 
 	/**
 	 * The class Case determines the contents of a compartment (wether there is a building, wastes ... in it 
 	 **/
-	public enum Possibility { Nothing, Building, Waste, BuildAndWaste };
 	public Possibility contains;
 	public float nbWaste;  // Indicates the quantity of Waste on this compartment
 	public Building bat; // A reference to the Building on this compartment if there is any

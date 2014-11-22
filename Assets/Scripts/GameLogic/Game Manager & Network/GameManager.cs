@@ -3,6 +3,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
+public enum Enum_guiShowMode
+{
+	NON,
+	BUILDINGLIST,
+	BUILDINGDESCRIPTION,
+	WASTED
+}
+
 public class GameManager: MonoBehaviour {
 
 	public GUITexture guitex_buttonSearch;
@@ -14,6 +22,10 @@ public class GameManager: MonoBehaviour {
 	public GUITexture[] guitex_caseContainer;
 	public GUITexture[] guitex_buildingContainer;
 	public GUIText guitex_buildingDescription;
+	public GUIText[] guitex_buildingCost;
+
+	private Enum_guiShowMode enum_guiShowMode = Enum_guiShowMode.NON; 
+	private Possibility[] array_casePossi = new Possibility[6];
 
 	private int i_maxNumPlayers = 1;
 
@@ -56,6 +68,11 @@ public class GameManager: MonoBehaviour {
 	// Use this for initialization
     void Start()
     {
+		for(int i = 0; i < 6; i++)
+		{
+			array_casePossi[i] = Possibility.Nothing;
+		}
+
         initResources();
 		initGame ();
 		initMap (i_idMyPlayerInGame);
@@ -161,6 +178,7 @@ public class GameManager: MonoBehaviour {
         /** 
          * Player input management
          **/
+		#region inputManager
         if (guitex_buttonSearch.HitTest(Input.mousePosition))
 		{
 			if(Input.GetMouseButton(0))
@@ -178,7 +196,35 @@ public class GameManager: MonoBehaviour {
 		else
 		{
 			guitex_buttonSearch.texture = GlobalVariables.ARRAY_TEXTURE_BUTTON_SEARCH[0];
-		}		
+		}
+
+		for(int i = 0; i <= guitex_caseContainer.Length; i++)
+		{
+			if(Input.GetMouseButtonDown(0) && guitex_caseContainer[i].HitTest(Input.mousePosition))
+			{
+				if(array_casePossi[i] == Possibility.Nothing)
+				{
+					enum_guiShowMode = Enum_guiShowMode.BUILDINGLIST;	
+				}
+				else if(array_casePossi[i] == Possibility.Building)
+				{
+					enum_guiShowMode = Enum_guiShowMode.BUILDINGDESCRIPTION;
+				}
+				else if(array_casePossi[i] == Possibility.Waste)
+				{
+					enum_guiShowMode = Enum_guiShowMode.WASTED;
+				}
+			}
+		}
+
+		if(enum_guiShowMode == Enum_guiShowMode.BUILDINGLIST)
+		{
+			for(int i = 0; i < 6; i++)
+			{
+
+			}
+		}
+		#endregion inputManager
 	}
 
 	void OnGUI()
