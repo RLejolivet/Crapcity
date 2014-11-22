@@ -12,7 +12,7 @@ using System.Collections.Generic;
 public class BuildingTemplate {
 
     [XmlElement("Name")]
-    public string name
+    public string Name
     {
         get;
         set;

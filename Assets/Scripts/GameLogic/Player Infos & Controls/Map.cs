@@ -11,7 +11,6 @@ public class Map {
 	private List<Case> terrain;
 	public int terrainSize ()
 	{
-
 		if (terrain != null)
 			return (terrain.Count());
 		return -1;
