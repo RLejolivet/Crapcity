@@ -15,6 +15,8 @@ public class GlobalVariables : MonoBehaviour {
 	public static GameObject GO_MAP;
 	public GameObject go_map;
 
+
+
 	// Use this for initialization
 	void Start () {
 
