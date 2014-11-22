@@ -8,7 +8,7 @@ public class Case {
 	 **/
 	public enum Possibility { Nothing, Building, Waste, BuildAndWaste };
 	public Possibility contains;
-	public int nbWaste;  // Indicates the quantity of Waste on this compartment
+	public float nbWaste;  // Indicates the quantity of Waste on this compartment
 	public Building bat; // A reference to the Building on this compartment if there is any
 	
 	/**
@@ -35,6 +35,7 @@ public class Case {
 			{
 				case Possibility.Nothing : 
 					contains = Possibility.Building;
+					bat = build;
 					break;
 				case Possibility.Waste : 
 					contains = Possibility.BuildAndWaste;
@@ -46,6 +47,42 @@ public class Case {
 					break;
 			}
 		}	
+	}
+	
+	public bool destroyBuilding()
+	{
+		switch (contains)
+			{
+				case Possibility.Building : 
+					contains = Possibility.Nothing;
+					// Augmenter le nombre de déchets du côté de player 
+					// A FAIRE
+					if (BuildingFactory.Instance.release(bat))
+						bat = null;
+					return true;
+					break;
+				case Possibility.BuildAndWaste : 
+					contains = Possibility.Waste;
+					// Augmenter le nombre de déchets du côté de player 
+					// A FAIRE
+					if (BuildingFactory.Instance.release(bat))
+					{
+						bat = null;
+						return true;
+					}
+					else 
+					{
+						Debug.Log("Fail to release building");
+						return false;
+					}
+					
+					break;
+				default : 
+					// Shouldn't happen
+					Debug.Log("Nothing to be destroyed");
+					return false;
+					break;
+			}
 	}
 	
 }
