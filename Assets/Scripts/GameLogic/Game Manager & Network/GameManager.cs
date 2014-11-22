@@ -11,7 +11,9 @@ public class GameManager: MonoBehaviour {
 	public GUIText guitex_numMat;
 	public GUIText guitex_numDec;
 	public GUITexture guitex_map;
-	public GUITexture[] guitex_caseContainer = new GUITexture[6];
+	public GUITexture[] guitex_caseContainer;
+	public GUITexture[] guitex_buildingContainer;
+	public GUIText guitex_buildingDescription;
 
 	private int i_maxNumPlayers = 1;
 
