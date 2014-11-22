@@ -17,6 +17,7 @@ public class Building {
     private float f_storage = -1;
     private BuildingTemplate origin;
     private bool is_hacked = false;
+	public float f_current_stock = 0;
 
 	public Building(BuildingTemplate b)
 	{
@@ -49,4 +50,21 @@ public class Building {
 				}
 			}
 	}
+	
+	public float getF_max_trade
+	{
+		get
+		{
+			return f_max_trade;
+		}
+	}
+	
+	public float getF_trade
+	{
+		get
+		{
+			return f_trade;
+		}
+	}
+	
 }
