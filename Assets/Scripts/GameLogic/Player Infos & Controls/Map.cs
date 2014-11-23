@@ -8,7 +8,7 @@ public class Map {
 	 * Map contains all the container of a player base
 	 **/
 
-	private List<Case> terrain;
+	public List<Case> terrain;
     private NetworkView nv;
 
 	public int terrainSize ()
@@ -26,6 +26,7 @@ public class Map {
 		{
 			terrain.Add(new Case());
 		}
+
         this.nv = nv;
 	}
 	

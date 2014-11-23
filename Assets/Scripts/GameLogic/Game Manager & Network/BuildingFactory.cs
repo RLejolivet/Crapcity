@@ -16,7 +16,7 @@ public class BuildingFactory {
         }
     }
 
-    private Dictionary<string,BuildingTemplate> buildingTemplates;
+    public Dictionary<string,BuildingTemplate> buildingTemplates;
 
     public BuildingFactory()
     {
@@ -29,6 +29,8 @@ public class BuildingFactory {
             Debug.Log("BuildingFactory is supposed to be a singleton");
         }
 
+        buildingTemplates = new Dictionary<string, BuildingTemplate>();
+
         TextAsset buildingFile;
         buildingFile = (TextAsset) UnityEngine.Resources.Load("Xml/Buildings");
         List<BuildingTemplate> buildingTemplatesList = XmlHelpers.LoadFromTextAsset<BuildingTemplate>(buildingFile);
@@ -38,10 +40,11 @@ public class BuildingFactory {
             try
             {
                 buildingTemplates.Add(b.Name, b);
+                //Debug.Log(b.Trade + " " + b.Max_Trade);
             }
             catch (System.ArgumentException)
             {
-
+                Debug.Log("ArgumentAxception dans BuildingFactory");
             }
         }
     }

@@ -179,16 +179,18 @@ public class GameManager: MonoBehaviour {
          * Time management
          **/
         frame++;
+        PlayerAvatar PA = null; 
+        foreach (PlayerInfo i in array_allPlayersInfos)
+        {
+            if (i_idMyPlayerInGame == i.i_idPlayerInGame)
+            {
+                PA = i.go_player.GetComponent<PlayerAvatar>();
+            }
+        }
         if (frame % 60 == 0)
         {
-            foreach(PlayerInfo i in array_allPlayersInfos)
-            {
-                if (i_idMyPlayerInGame  == i.i_idPlayerInGame)
-                {
-                    i.go_player.GetComponent<PlayerAvatar>().updateResource();
-                    i.go_player.GetComponent<PlayerAvatar>().getSendWastes(is_sending);
-                }
-            }
+            PA.updateResource();
+            PA.getSendWastes(is_sending);
         }
 
 
@@ -215,24 +217,28 @@ public class GameManager: MonoBehaviour {
 			guitex_buttonSearch.texture = GlobalVariables.ARRAY_TEXTURE_BUTTON_SEARCH[0];
 		}
 
+        /* Traitement de la map en général */
 		for(int i = 0; i < guitex_caseContainer.Length; i++)
 		{
+            /* Si on clique sur une case de la map */
 			if(Input.GetMouseButtonDown(0) && guitex_caseContainer[i].HitTest(Input.mousePosition))
 			{
+                /* Si cette case est vide, on affiche les boutons pour acheter un batiment */
 				if(array_caseContent[i] == Enum_caseContent.NON)
 				{
 					enum_guiShowMode = Enum_guiShowMode.BUILDINGLIST;
 					i_wishBuildingCase = i;
 
 					guitex_buildingContainer[0].texture = GlobalVariables.ATEX_TRANSPORT[2];
-					guitex_buildingCost[0].text = "inputTheCost";
+                    guitex_buildingCost[0].text = (int)BuildingFactory.Instance.buildingTemplates["Transporteur"].Cost["Positif"] + " R";
 					guitex_buildingContainer[1].texture = GlobalVariables.ATEX_RECYCLE[2];
-					guitex_buildingCost[1].text = "inputTheCost";
+                    guitex_buildingCost[1].text = (int)BuildingFactory.Instance.buildingTemplates["Recycleur"].Cost["Positif"] + " R";
 					guitex_buildingContainer[2].texture = GlobalVariables.ATEX_HACK[2];
-					guitex_buildingCost[2].text = "inputTheCost";
+                    guitex_buildingCost[2].text = (int)BuildingFactory.Instance.buildingTemplates["Stand de hack"].Cost["Positif"] + " R";
 					guitex_buildingContainer[3].texture = GlobalVariables.ATEX_USINE[2];
-					guitex_buildingCost[3].text = "inputTheCost";
+                    guitex_buildingCost[3].text = (int)BuildingFactory.Instance.buildingTemplates["Usine"].Cost["Positif"] + " R";
 				}
+                /* Si elle n'est pas vide, on ne peut pas y construire */
 				else
 				{
 					i_wishBuildingCase = -1;
@@ -247,6 +253,7 @@ public class GameManager: MonoBehaviour {
 					guitex_buildingCost[3].text = "";
 				}
 
+                /* Mais on affiche la description pour un batiment */
 				if(array_caseContent[i] == Enum_caseContent.BUILD_DECHETTERIE1
 				        || array_caseContent[i] == Enum_caseContent.BUILD_DECHETTERIE2
 				        || array_caseContent[i] == Enum_caseContent.BUILD_DECHETTERIE3
@@ -256,25 +263,25 @@ public class GameManager: MonoBehaviour {
 				        || array_caseContent[i] == Enum_caseContent.BUILD_USINE)
 				{
 					enum_guiShowMode = Enum_guiShowMode.BUILDINGDESCRIPTION;
-
-					guitex_buildingDescription.text = "BuildingDescription";
+					guitex_buildingDescription.text = PA.map_myPlayer.getCase(i).bat.origin.Description;
 				}
-				else
+				else /* Ou rien pour le reste */
 				{
 					guitex_buildingDescription.text = "";
 				}
 
+                /* Si il y a des déchets, on voit des infos et on peut eventuellement créer une décharge */
 				if(array_caseContent[i] == Enum_caseContent.WASTED1
 				        || array_caseContent[i] == Enum_caseContent.WASTED2)
 				{
 					enum_guiShowMode = Enum_guiShowMode.WASTED;
 
 					guitex_buildingContainer[0].texture = GlobalVariables.ATEX_DECHETTERIE[0];
-					guitex_buildingCost[0].text = "inputTheCost";
+                    guitex_buildingCost[0].text = (int)BuildingFactory.Instance.buildingTemplates["Décharge"].Cost["Positif"] + " R";
 				}
-				else
+				else // C'est pas des déchets
 				{
-					if(enum_guiShowMode != Enum_guiShowMode.BUILDINGLIST)
+					if(enum_guiShowMode != Enum_guiShowMode.BUILDINGLIST) // Et pas une liste de batiment
 					{
 						guitex_buildingContainer[0].texture = null;
 						guitex_buildingCost[0].text = "";
@@ -282,38 +289,44 @@ public class GameManager: MonoBehaviour {
 				}
 			}
 		}
+        /* Fin du traitement de la map (si on clique dessus)*/
 
-		if(enum_guiShowMode == Enum_guiShowMode.BUILDINGLIST 
+        /* Début du traitement de la barre à droite : création de batiment */
+		if(enum_guiShowMode == Enum_guiShowMode.BUILDINGLIST /* Disponible seulement dans les modes construction de batiment et déchets */
 		   || enum_guiShowMode == Enum_guiShowMode.WASTED)
 		{
-			for(int i = 0; i < 4; i++)
+			for(int i = 0; i < 4; i++) // pour chacune des cases
 			{
-				if(enum_guiShowMode != Enum_guiShowMode.WASTED)
+				if(enum_guiShowMode != Enum_guiShowMode.WASTED) // DONC == Enum_guiShowMode.BUILDINGLIST
 				{
-					if(Input.GetMouseButtonDown(0) && guitex_buildingContainer[i].HitTest(Input.mousePosition))
+					if(Input.GetMouseButtonDown(0) && guitex_buildingContainer[i].HitTest(Input.mousePosition)) // si on clique sur construire le batiment i
 					{
-						if(i_wishBuildingCase != -1 && array_caseContent[i_wishBuildingCase] == Enum_caseContent.NON)
+						if(i_wishBuildingCase != -1 && array_caseContent[i_wishBuildingCase] == Enum_caseContent.NON) // si on a bien le permis de construire
 						{
-							guitex_caseContainer[i_wishBuildingCase].texture = guitex_buildingContainer[i].texture;
+							guitex_caseContainer[i_wishBuildingCase].texture = guitex_buildingContainer[i].texture; // on récupère la texture associée à l'objet qu'on construit et la duplique dans la case
 							if(i == 0)
 							{
-								array_caseContent[i_wishBuildingCase] = Enum_caseContent.BUILD_TRANSPORT;
+								array_caseContent[i_wishBuildingCase] = Enum_caseContent.BUILD_TRANSPORT; // on dit qu'il y a un transport dans cette case
+                                PA.createBuildingOnCase(i_wishBuildingCase, "Transporteur");
 							}
 							else if(i == 1)
 							{
-								array_caseContent[i_wishBuildingCase] = Enum_caseContent.BUILD_RECYCLE;
+                                array_caseContent[i_wishBuildingCase] = Enum_caseContent.BUILD_RECYCLE;
+                                PA.createBuildingOnCase(i_wishBuildingCase, "Recycleur");
 							}
 							else if(i == 2)
 							{
-								array_caseContent[i_wishBuildingCase] = Enum_caseContent.BUILD_HACK;
+                                array_caseContent[i_wishBuildingCase] = Enum_caseContent.BUILD_HACK;
+                                PA.createBuildingOnCase(i_wishBuildingCase, "Stand de hack");
 							}
 							else if(i == 3)
 							{
-								array_caseContent[i_wishBuildingCase] = Enum_caseContent.BUILD_USINE;
+                                array_caseContent[i_wishBuildingCase] = Enum_caseContent.BUILD_USINE;
+                                PA.createBuildingOnCase(i_wishBuildingCase, "Usine");
 							}
 
-							i_wishBuildingCase = -1;
-							enum_guiShowMode = Enum_guiShowMode.NON;
+							i_wishBuildingCase = -1; // on a construit ici, donc la case n'est plus sélectionnée
+							enum_guiShowMode = Enum_guiShowMode.NON; // on affiche plus le menu à droite
 
 							guitex_buildingContainer[0].texture = null;
 							guitex_buildingCost[0].text = "";
@@ -325,17 +338,18 @@ public class GameManager: MonoBehaviour {
 							guitex_buildingCost[3].text = "";
 						}
 					}
-				}
+				} /* fin de BUILDINGLIST seulement, donc on est dans WASTE */
 				else
 				{
-					if(Input.GetMouseButtonDown(0) && guitex_buildingContainer[0].HitTest(Input.mousePosition))
+					if(Input.GetMouseButtonDown(0) && guitex_buildingContainer[0].HitTest(Input.mousePosition)) // si on clique sur la première case pour faire une déchetterie
 					{
 						if(i_wishBuildingCase != -1 && 
 						   (array_caseContent[i_wishBuildingCase] == Enum_caseContent.WASTED1
 						 || array_caseContent[i_wishBuildingCase] == Enum_caseContent.WASTED2))
 						{
 							guitex_caseContainer[i_wishBuildingCase].texture = guitex_buildingContainer[0].texture;
-							array_caseContent[i_wishBuildingCase] = Enum_caseContent.BUILD_DECHETTERIE1;
+                            array_caseContent[i_wishBuildingCase] = Enum_caseContent.BUILD_DECHETTERIE1;
+                            PA.createBuildingOnCase(i_wishBuildingCase, "Décharge");
 
 							i_wishBuildingCase = -1;
 							enum_guiShowMode = Enum_guiShowMode.NON;
@@ -344,10 +358,21 @@ public class GameManager: MonoBehaviour {
 							guitex_buildingCost[0].text = "";
 						}
 					}
-					i = 4;
+                    i = 4;
 				}
 			}
 		}
+
+        /** Afficher le texte du nombre des ressources **/
+        foreach (PlayerInfo i in array_allPlayersInfos)
+        {
+            if (i_idMyPlayerInGame == i.i_idPlayerInGame)
+            {
+                guitex_numMat.text = i.go_player.GetComponent<PlayerAvatar>().Resources["Positif"].ToString();
+                guitex_numDec.text = i.go_player.GetComponent<PlayerAvatar>().Resources["Negatif"].ToString();
+            }
+        }
+
 
 		int[] caseContentBuffer = new int[6];
 		for(int i = 0; i < 6; i++)

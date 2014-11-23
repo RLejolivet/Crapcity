@@ -5,14 +5,14 @@ using System.Collections.Generic;
 public class PlayerAvatar : MonoBehaviour {
 	// We can choose the size of a map
 	[SerializeField]
-	private int sizeMap;
+	private int sizeMap = 12;
 	
 	private int i_idThisPlayerInGame = -1;
 	private int i_idMyPlayerInGame = -2;  //for avoid bugs in Update() of InputController, use different number with i_idThisPlayerInGame
 	private int i_sidePlayer = -1;
 
 	private string s_namePlayer = null;
-	private Map map_myPlayer;
+	public Map map_myPlayer;
 	private Dictionary<string, float> dic_resourcesPlayer = new Dictionary<string, float>();
 	private float readyToSend = 0;
 	
@@ -29,6 +29,14 @@ public class PlayerAvatar : MonoBehaviour {
         }
 		initMap ();
 	}
+
+    public Dictionary<string, float> Resources
+    {
+        get
+        {
+            return dic_resourcesPlayer;
+        }
+    }
 
 	// initialization of the map with sizeMap building emplacement 
 	public void initMap ()
