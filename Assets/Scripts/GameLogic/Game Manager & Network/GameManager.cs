@@ -37,12 +37,17 @@ public class GameManager: MonoBehaviour {
 	public GUITexture[] guitex_buildingContainer;
 	public GUIText guitex_buildingDescription;
 	public GUIText[] guitex_buildingCost;
+	public GUITexture guitex_buttonEnemyCity;
+	public GUITexture guitex_buttonReturn;
 
 	private Enum_guiShowMode enum_guiShowMode = Enum_guiShowMode.NON; 
 	private Enum_caseContent[] array_caseContent = new Enum_caseContent[6];
-	private Enum_caseContent[] array_caseConentEnemy = new Enum_caseContent[6];
+	private Enum_caseContent[] array_caseContentEnemy = new Enum_caseContent[6];
 
 	private int i_wishBuildingCase = -1;
+	private int i_resourcePositive = 150;
+	private int i_resourcenegative = 0;
+	private bool b_inEnemyCity = false;
 
 	private int i_maxNumPlayers = 1;
 
@@ -215,139 +220,186 @@ public class GameManager: MonoBehaviour {
 			guitex_buttonSearch.texture = GlobalVariables.ARRAY_TEXTURE_BUTTON_SEARCH[0];
 		}
 
-		for(int i = 0; i < guitex_caseContainer.Length; i++)
+		if(guitex_buttonEnemyCity.HitTest(Input.mousePosition))
 		{
-			if(Input.GetMouseButtonDown(0) && guitex_caseContainer[i].HitTest(Input.mousePosition))
+			if(Input.GetMouseButton(0))
 			{
-				if(array_caseContent[i] == Enum_caseContent.NON)
+				if(Input.GetMouseButtonDown(0))
 				{
-					enum_guiShowMode = Enum_guiShowMode.BUILDINGLIST;
-					i_wishBuildingCase = i;
+					guitex_buttonEnemyCity.texture = GlobalVariables.ARRAY_TEXTURE_BUTTON_SEARCH[2];
+					showEnemyCity();
+					b_inEnemyCity = true;
 
-					guitex_buildingContainer[0].texture = GlobalVariables.ATEX_TRANSPORT[2];
-					guitex_buildingCost[0].text = "inputTheCost";
-					guitex_buildingContainer[1].texture = GlobalVariables.ATEX_RECYCLE[2];
-					guitex_buildingCost[1].text = "inputTheCost";
-					guitex_buildingContainer[2].texture = GlobalVariables.ATEX_HACK[2];
-					guitex_buildingCost[2].text = "inputTheCost";
-					guitex_buildingContainer[3].texture = GlobalVariables.ATEX_USINE[2];
-					guitex_buildingCost[3].text = "inputTheCost";
-				}
-				else
-				{
-					i_wishBuildingCase = -1;
-
-					guitex_buildingContainer[0].texture = null;
-					guitex_buildingCost[0].text = "";
-					guitex_buildingContainer[1].texture = null;
-					guitex_buildingCost[1].text = "";
-					guitex_buildingContainer[2].texture = null;
-					guitex_buildingCost[2].text = "";
-					guitex_buildingContainer[3].texture = null;
-					guitex_buildingCost[3].text = "";
-				}
-
-				if(array_caseContent[i] == Enum_caseContent.BUILD_DECHETTERIE1
-				        || array_caseContent[i] == Enum_caseContent.BUILD_DECHETTERIE2
-				        || array_caseContent[i] == Enum_caseContent.BUILD_DECHETTERIE3
-				        || array_caseContent[i] == Enum_caseContent.BUILD_HACK
-				        || array_caseContent[i] == Enum_caseContent.BUILD_RECYCLE
-				        || array_caseContent[i] == Enum_caseContent.BUILD_TRANSPORT
-				        || array_caseContent[i] == Enum_caseContent.BUILD_USINE)
-				{
-					enum_guiShowMode = Enum_guiShowMode.BUILDINGDESCRIPTION;
-
-					guitex_buildingDescription.text = "BuildingDescription";
-				}
-				else
-				{
+					enum_guiShowMode = Enum_guiShowMode.NON;
 					guitex_buildingDescription.text = "";
-				}
-
-				if(array_caseContent[i] == Enum_caseContent.WASTED1
-				        || array_caseContent[i] == Enum_caseContent.WASTED2)
-				{
-					enum_guiShowMode = Enum_guiShowMode.WASTED;
-
-					guitex_buildingContainer[0].texture = GlobalVariables.ATEX_DECHETTERIE[0];
-					guitex_buildingCost[0].text = "inputTheCost";
-				}
-				else
-				{
-					if(enum_guiShowMode != Enum_guiShowMode.BUILDINGLIST)
+					for(int i = 0; i < 6; i++)
 					{
+						guitex_buildingContainer[i].texture = null;
+					}
+				}
+			}
+			else
+			{
+				guitex_buttonEnemyCity.texture = GlobalVariables.ARRAY_TEXTURE_BUTTON_SEARCH[1];
+			}
+		}
+
+		if(guitex_buttonReturn.HitTest(Input.mousePosition))
+		{
+			if(Input.GetMouseButton(0))
+			{
+				if(Input.GetMouseButtonDown(0))
+				{
+					guitex_buttonReturn.texture = GlobalVariables.ARRAY_TEXTURE_BUTTON_SEARCH[2];
+					showMyCity();
+					b_inEnemyCity = false;
+				}
+			}
+			else
+			{
+				guitex_buttonReturn.texture = GlobalVariables.ARRAY_TEXTURE_BUTTON_SEARCH[1];
+			}
+		}
+
+		if(b_inEnemyCity == false)
+		{
+			for(int i = 0; i < guitex_caseContainer.Length; i++)
+			{
+				if(Input.GetMouseButtonDown(0) && guitex_caseContainer[i].HitTest(Input.mousePosition))
+				{
+					if(array_caseContent[i] == Enum_caseContent.NON)
+					{
+						enum_guiShowMode = Enum_guiShowMode.BUILDINGLIST;
+						i_wishBuildingCase = i;
+
+						guitex_buildingContainer[0].texture = GlobalVariables.ATEX_TRANSPORT[2];
+						guitex_buildingCost[0].text = "inputTheCost";
+						guitex_buildingContainer[1].texture = GlobalVariables.ATEX_RECYCLE[2];
+						guitex_buildingCost[1].text = "inputTheCost";
+						guitex_buildingContainer[2].texture = GlobalVariables.ATEX_HACK[2];
+						guitex_buildingCost[2].text = "inputTheCost";
+						guitex_buildingContainer[3].texture = GlobalVariables.ATEX_USINE[2];
+						guitex_buildingCost[3].text = "inputTheCost";
+					}
+					else
+					{
+						i_wishBuildingCase = -1;
+
 						guitex_buildingContainer[0].texture = null;
 						guitex_buildingCost[0].text = "";
+						guitex_buildingContainer[1].texture = null;
+						guitex_buildingCost[1].text = "";
+						guitex_buildingContainer[2].texture = null;
+						guitex_buildingCost[2].text = "";
+						guitex_buildingContainer[3].texture = null;
+						guitex_buildingCost[3].text = "";
+					}
+
+					if(array_caseContent[i] == Enum_caseContent.BUILD_DECHETTERIE1
+					        || array_caseContent[i] == Enum_caseContent.BUILD_DECHETTERIE2
+					        || array_caseContent[i] == Enum_caseContent.BUILD_DECHETTERIE3
+					        || array_caseContent[i] == Enum_caseContent.BUILD_HACK
+					        || array_caseContent[i] == Enum_caseContent.BUILD_RECYCLE
+					        || array_caseContent[i] == Enum_caseContent.BUILD_TRANSPORT
+					        || array_caseContent[i] == Enum_caseContent.BUILD_USINE)
+					{
+						enum_guiShowMode = Enum_guiShowMode.BUILDINGDESCRIPTION;
+
+						guitex_buildingDescription.text = "BuildingDescription";
+					}
+					else
+					{
+						guitex_buildingDescription.text = "";
+					}
+
+					if(array_caseContent[i] == Enum_caseContent.WASTED1
+					        || array_caseContent[i] == Enum_caseContent.WASTED2)
+					{
+						enum_guiShowMode = Enum_guiShowMode.WASTED;
+
+						guitex_buildingContainer[0].texture = GlobalVariables.ATEX_DECHETTERIE[0];
+						guitex_buildingCost[0].text = "inputTheCost";
+					}
+					else
+					{
+						if(enum_guiShowMode != Enum_guiShowMode.BUILDINGLIST)
+						{
+							guitex_buildingContainer[0].texture = null;
+							guitex_buildingCost[0].text = "";
+						}
 					}
 				}
 			}
-		}
 
-		if(enum_guiShowMode == Enum_guiShowMode.BUILDINGLIST 
-		   || enum_guiShowMode == Enum_guiShowMode.WASTED)
-		{
-			for(int i = 0; i < 4; i++)
+			if(enum_guiShowMode == Enum_guiShowMode.BUILDINGLIST 
+			   || enum_guiShowMode == Enum_guiShowMode.WASTED)
 			{
-				if(enum_guiShowMode != Enum_guiShowMode.WASTED)
+				for(int i = 0; i < 4; i++)
 				{
-					if(Input.GetMouseButtonDown(0) && guitex_buildingContainer[i].HitTest(Input.mousePosition))
+					if(enum_guiShowMode != Enum_guiShowMode.WASTED)
 					{
-						if(i_wishBuildingCase != -1 && array_caseContent[i_wishBuildingCase] == Enum_caseContent.NON)
+						if(Input.GetMouseButtonDown(0) && guitex_buildingContainer[i].HitTest(Input.mousePosition))
 						{
-							guitex_caseContainer[i_wishBuildingCase].texture = guitex_buildingContainer[i].texture;
-							if(i == 0)
+							if(i_wishBuildingCase != -1 && array_caseContent[i_wishBuildingCase] == Enum_caseContent.NON)
 							{
-								array_caseContent[i_wishBuildingCase] = Enum_caseContent.BUILD_TRANSPORT;
-							}
-							else if(i == 1)
-							{
-								array_caseContent[i_wishBuildingCase] = Enum_caseContent.BUILD_RECYCLE;
-							}
-							else if(i == 2)
-							{
-								array_caseContent[i_wishBuildingCase] = Enum_caseContent.BUILD_HACK;
-							}
-							else if(i == 3)
-							{
-								array_caseContent[i_wishBuildingCase] = Enum_caseContent.BUILD_USINE;
-							}
+								guitex_caseContainer[i_wishBuildingCase].texture = guitex_buildingContainer[i].texture;
 
-							i_wishBuildingCase = -1;
-							enum_guiShowMode = Enum_guiShowMode.NON;
+								if(i == 0)
+								{
+									array_caseContent[i_wishBuildingCase] = Enum_caseContent.BUILD_TRANSPORT;
+								}
+								else if(i == 1)
+								{
+									array_caseContent[i_wishBuildingCase] = Enum_caseContent.BUILD_RECYCLE;
+								}
+								else if(i == 2)
+								{
+									array_caseContent[i_wishBuildingCase] = Enum_caseContent.BUILD_HACK;
+								}
+								else if(i == 3)
+								{
+									array_caseContent[i_wishBuildingCase] = Enum_caseContent.BUILD_USINE;
+								}
 
-							guitex_buildingContainer[0].texture = null;
-							guitex_buildingCost[0].text = "";
-							guitex_buildingContainer[1].texture = null;
-							guitex_buildingCost[1].text = "";
-							guitex_buildingContainer[2].texture = null;
-							guitex_buildingCost[2].text = "";
-							guitex_buildingContainer[3].texture = null;
-							guitex_buildingCost[3].text = "";
+								i_wishBuildingCase = -1;
+								enum_guiShowMode = Enum_guiShowMode.NON;
+
+								guitex_buildingContainer[0].texture = null;
+								guitex_buildingCost[0].text = "";
+								guitex_buildingContainer[1].texture = null;
+								guitex_buildingCost[1].text = "";
+								guitex_buildingContainer[2].texture = null;
+								guitex_buildingCost[2].text = "";
+								guitex_buildingContainer[3].texture = null;
+								guitex_buildingCost[3].text = "";
+							}
 						}
 					}
-				}
-				else
-				{
-					if(Input.GetMouseButtonDown(0) && guitex_buildingContainer[0].HitTest(Input.mousePosition))
+					else
 					{
-						if(i_wishBuildingCase != -1 && 
-						   (array_caseContent[i_wishBuildingCase] == Enum_caseContent.WASTED1
-						 || array_caseContent[i_wishBuildingCase] == Enum_caseContent.WASTED2))
+						if(Input.GetMouseButtonDown(0) && guitex_buildingContainer[0].HitTest(Input.mousePosition))
 						{
-							guitex_caseContainer[i_wishBuildingCase].texture = guitex_buildingContainer[0].texture;
-							array_caseContent[i_wishBuildingCase] = Enum_caseContent.BUILD_DECHETTERIE1;
+							if(i_wishBuildingCase != -1 && 
+							   (array_caseContent[i_wishBuildingCase] == Enum_caseContent.WASTED1
+							 || array_caseContent[i_wishBuildingCase] == Enum_caseContent.WASTED2))
+							{
+								guitex_caseContainer[i_wishBuildingCase].texture = guitex_buildingContainer[0].texture;
+								array_caseContent[i_wishBuildingCase] = Enum_caseContent.BUILD_DECHETTERIE1;
 
-							i_wishBuildingCase = -1;
-							enum_guiShowMode = Enum_guiShowMode.NON;
+								i_wishBuildingCase = -1;
+								enum_guiShowMode = Enum_guiShowMode.NON;
 
-							guitex_buildingContainer[0].texture = null;
-							guitex_buildingCost[0].text = "";
+								guitex_buildingContainer[0].texture = null;
+								guitex_buildingCost[0].text = "";
+							}
 						}
+						i = 4;
 					}
-					i = 4;
 				}
 			}
 		}
+
+
 
 		int[] caseContentBuffer = new int[6];
 		for(int i = 0; i < 6; i++)
@@ -389,6 +441,7 @@ public class GameManager: MonoBehaviour {
 			}
 		}
 		networkView.RPC("updateCaseContentRPC", RPCMode.Others, caseContentBuffer);
+
 		#endregion inputManager
 	}
 
@@ -405,34 +458,118 @@ public class GameManager: MonoBehaviour {
 			switch (caseContentBuffer[i])
 			{
 			case 1:
-				array_caseConentEnemy[i] = Enum_caseContent.NON;
+				array_caseContentEnemy[i] = Enum_caseContent.NON;
 				break;
 			case 2:
-				array_caseConentEnemy[i] = Enum_caseContent.WASTED1;
+				array_caseContentEnemy[i] = Enum_caseContent.WASTED1;
 				break;
 			case 3:
-				array_caseConentEnemy[i] = Enum_caseContent.WASTED2;
+				array_caseContentEnemy[i] = Enum_caseContent.WASTED2;
 				break;
 			case 4:
-				array_caseConentEnemy[i] = Enum_caseContent.BUILD_RECYCLE;
+				array_caseContentEnemy[i] = Enum_caseContent.BUILD_RECYCLE;
 				break;
 			case 5:
-				array_caseConentEnemy[i] = Enum_caseContent.BUILD_HACK;
+				array_caseContentEnemy[i] = Enum_caseContent.BUILD_HACK;
 				break;
 			case 6:
-				array_caseConentEnemy[i] = Enum_caseContent.BUILD_USINE;
+				array_caseContentEnemy[i] = Enum_caseContent.BUILD_USINE;
 				break;
 			case 7:
-				array_caseConentEnemy[i] = Enum_caseContent.BUILD_TRANSPORT;
+				array_caseContentEnemy[i] = Enum_caseContent.BUILD_TRANSPORT;
 				break;
 			case 8:
-				array_caseConentEnemy[i] = Enum_caseContent.BUILD_DECHETTERIE1;
+				array_caseContentEnemy[i] = Enum_caseContent.BUILD_DECHETTERIE1;
 				break;
 			case 9:
-				array_caseConentEnemy[i] = Enum_caseContent.BUILD_DECHETTERIE2;
+				array_caseContentEnemy[i] = Enum_caseContent.BUILD_DECHETTERIE2;
 				break;
 			case 10:
-				array_caseConentEnemy[i] = Enum_caseContent.BUILD_DECHETTERIE3;
+				array_caseContentEnemy[i] = Enum_caseContent.BUILD_DECHETTERIE3;
+				break;
+			default:
+				break;
+			}
+		}
+	}
+
+	public void showEnemyCity()
+	{
+		for(int i = 0; i < 6; i++)
+		{
+			switch (array_caseContentEnemy[i])
+			{
+			case Enum_caseContent.NON:
+				guitex_caseContainer[i].texture = null;
+				break;
+			case Enum_caseContent.WASTED1:
+				guitex_caseContainer[i].texture = GlobalVariables.ATEX_DECHET[0];
+				break;
+			case Enum_caseContent.WASTED2:
+				guitex_caseContainer[i].texture = GlobalVariables.ATEX_DECHET[1];
+				break;
+			case Enum_caseContent.BUILD_DECHETTERIE1:
+				guitex_caseContainer[i].texture = GlobalVariables.ATEX_DECHETTERIE[0];
+				break;
+			case Enum_caseContent.BUILD_DECHETTERIE2:
+				guitex_caseContainer[i].texture = GlobalVariables.ATEX_DECHETTERIE[1];
+				break;
+			case Enum_caseContent.BUILD_DECHETTERIE3:
+				guitex_caseContainer[i].texture = GlobalVariables.ATEX_DECHETTERIE[2];
+				break;
+			case Enum_caseContent.BUILD_HACK:
+				guitex_caseContainer[i].texture = GlobalVariables.ATEX_HACK[2];
+				break;
+			case Enum_caseContent.BUILD_RECYCLE:
+				guitex_caseContainer[i].texture = GlobalVariables.ATEX_RECYCLE[2];
+				break;
+			case Enum_caseContent.BUILD_TRANSPORT:
+				guitex_caseContainer[i].texture = GlobalVariables.ATEX_TRANSPORT[2];
+				break;
+			case Enum_caseContent.BUILD_USINE:
+				guitex_caseContainer[i].texture = GlobalVariables.ATEX_USINE[2];
+				break;
+			default:
+				break;
+			}
+		}
+	}
+
+	public void showMyCity()
+	{
+		for(int i = 0; i < 6; i++)
+		{
+			switch (array_caseContent[i])
+			{
+			case Enum_caseContent.NON:
+				guitex_caseContainer[i].texture = null;
+				break;
+			case Enum_caseContent.WASTED1:
+				guitex_caseContainer[i].texture = GlobalVariables.ATEX_DECHET[0];
+				break;
+			case Enum_caseContent.WASTED2:
+				guitex_caseContainer[i].texture = GlobalVariables.ATEX_DECHET[1];
+				break;
+			case Enum_caseContent.BUILD_DECHETTERIE1:
+				guitex_caseContainer[i].texture = GlobalVariables.ATEX_DECHETTERIE[0];
+				break;
+			case Enum_caseContent.BUILD_DECHETTERIE2:
+				guitex_caseContainer[i].texture = GlobalVariables.ATEX_DECHETTERIE[1];
+				break;
+			case Enum_caseContent.BUILD_DECHETTERIE3:
+				guitex_caseContainer[i].texture = GlobalVariables.ATEX_DECHETTERIE[2];
+				break;
+			case Enum_caseContent.BUILD_HACK:
+				guitex_caseContainer[i].texture = GlobalVariables.ATEX_HACK[2];
+				break;
+			case Enum_caseContent.BUILD_RECYCLE:
+				guitex_caseContainer[i].texture = GlobalVariables.ATEX_RECYCLE[2];
+				break;
+			case Enum_caseContent.BUILD_TRANSPORT:
+				guitex_caseContainer[i].texture = GlobalVariables.ATEX_TRANSPORT[2];
+				break;
+			case Enum_caseContent.BUILD_USINE:
+				guitex_caseContainer[i].texture = GlobalVariables.ATEX_USINE[2];
 				break;
 			default:
 				break;
