@@ -122,6 +122,7 @@ public class Case {
 	
 	public float getSendWastes(bool stock)
 	{
+		float ret = 0;
 		if (bat != null)
 		{
 			if (stock)
@@ -132,7 +133,13 @@ public class Case {
 					bat.f_current_stock = bat.getF_max_trade;
 				}
 			}
-			return bat.f_current_stock;
+			else
+			{
+				if (bat.f_current_stock > 0)
+					ret = bat.f_current_stock;
+				ret = bat.getF_trade;
+			}
+			return ret;
 		}
 		return 0;
 	}

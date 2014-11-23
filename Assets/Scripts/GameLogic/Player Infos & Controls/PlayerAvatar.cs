@@ -56,9 +56,9 @@ public class PlayerAvatar : MonoBehaviour {
 	
 	
 	// Count the n° of waste items ready to be sent
-	public void getSendWastes(bool stock)
+	public void getSendWastes(bool issending)
 	{
-		float readyToSend = map_myPlayer.getSendWastes(stock);
+		float readyToSend = map_myPlayer.getSendWastes(!issending);
 		if (dic_resourcesPlayer.ContainsKey("Negatif"))
 		{
 			if (readyToSend > dic_resourcesPlayer["Negatif"])
@@ -76,6 +76,12 @@ public class PlayerAvatar : MonoBehaviour {
 				Debug.Log("Try to sendWaste when not allowed to");
 			}
 		}
+	}
+	
+		// Send all the waste available to be sent
+[RPC]	public void sendWaste(float qty)
+	{
+		dic_resourcesPlayer["Negatif"] += qty;
 	}
 	
 	public void destroyBuildingOnCase(int ncase)
@@ -113,11 +119,7 @@ public class PlayerAvatar : MonoBehaviour {
 	}
 	
 	
-	// Send all the waste available to be sent
-[RPC]	public void sendWaste(float qty)
-	{
-		dic_resourcesPlayer["Negatif"] += qty;
-	}
+
 	
 	public int getIdThisPlayerInGame()
 	{
