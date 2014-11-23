@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Xml.Serialization;
+using System.Xml.Serialization; 
 using System.Collections.Generic;
 
 
@@ -12,6 +12,12 @@ using System.Collections.Generic;
 [XmlType("building_template")]
 public class BuildingTemplate {
 
+    public struct KVP<K, V>
+    {
+        public K Key { get; set; }
+        public V Value { get; set; }
+    }
+
     [XmlElement("name")]
     public string Name
     {
@@ -20,11 +26,21 @@ public class BuildingTemplate {
     }
 
     [XmlElement("cost")]
-    public List<KeyValuePair<string, float>> ProxyCost
+    public KVP<string, float>[] ProxyCost
     {
         get
         {
-            return new List<KeyValuePair<string, float>>(this.Cost);
+            KVP<string, float>[] l = new KVP<string, float>[10];
+            int i = 0;
+            foreach (KeyValuePair<string, float> p in this.Cost)
+            {
+                KVP<string, float> k = new KVP<string, float>();
+                k.Key = p.Key;
+                k.Value = p.Value;
+                l[i] = k;
+                i++;
+            }
+            return l;
         }
         set
         {
@@ -54,11 +70,21 @@ public class BuildingTemplate {
     }
 
     [XmlElement("incomes")]
-    public List<KeyValuePair<string, float>> ProxyIncomes
+    public KVP<string, float>[] ProxyIncomes
     {
         get
         {
-            return new List<KeyValuePair<string, float>>(this.Incomes);
+            KVP<string, float>[] l = new KVP<string, float>[10];
+            int i = 0;
+            foreach (KeyValuePair<string, float> p in this.Incomes)
+            {
+                KVP<string, float> k = new KVP<string, float>();
+                k.Key = p.Key;
+                k.Value = p.Value;
+                l[i] = k;
+                i++;
+            }
+            return l;
         }
         set
         {

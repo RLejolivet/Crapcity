@@ -8,15 +8,15 @@ using System.Runtime.Serialization.Formatters.Binary;
 [Serializable()]
 public class Building {
 
-	private string s_nameBuilding = null;
-	private Dictionary<string, float> dic_cost = new Dictionary<string, float>();
-	private Dictionary<string, float> dic_incomes = new Dictionary<string, float>();
-	private float f_trade = -1;
-    private float f_max_trade = -1;
-	private float f_buildTime = -1;
-    private float f_storage = -1;
-    private BuildingTemplate origin;
-    private bool is_hacked = false;
+    public string s_nameBuilding = null;
+    public Dictionary<string, float> dic_cost = new Dictionary<string, float>();
+    public Dictionary<string, float> dic_incomes = new Dictionary<string, float>();
+    public float f_trade = -1;
+    public float f_max_trade = -1;
+    public float f_buildTime = -1;
+    public float f_storage = -1;
+    public BuildingTemplate origin;
+    public bool is_hacked = false;
 	public float f_current_stock = 0;
 
 	public Building(BuildingTemplate b)
@@ -69,7 +69,7 @@ public class Building {
 			{
 				if (total.ContainsKey(inc.Key))
 				{
-					total[inc.Key] -= inc.Value;
+					total[inc.Key] += inc.Value;
 				}
 				else 
 				{
