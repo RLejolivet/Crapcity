@@ -36,13 +36,40 @@ public class Building {
 		return s_nameBuilding;
 	}
 
+	private bool canBuild(Dictionary<string, float> dic_resourcesPlayer)
+	{
+		foreach(KeyValuePair<string, float> inc in this.dic_cost)
+		{
+			if (dic_resourcesPlayer[inc.Key] < inc.Value)
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public bool getCost(Dictionary<string, float> dic_resourcesPlayer)
+	{
+		bool res = true;
+		if (canBuild(dic_resourcesPlayer)) //canbuild return true if there are enough resources to build
+		{
+			foreach(KeyValuePair<string, float> inc in this.dic_cost)
+			{
+				dic_resourcesPlayer[inc.Key] -= inc.Value;
+			}
+			return true;
+		}
+		return false;
+	}
+	
+	
 	public void getResources(Dictionary<string, float> total)
 	{
 		foreach(KeyValuePair<string, float> inc in this.dic_incomes)
 			{
 				if (total.ContainsKey(inc.Key))
 				{
-					total[inc.Key] += inc.Value;
+					total[inc.Key] -= inc.Value;
 				}
 				else 
 				{

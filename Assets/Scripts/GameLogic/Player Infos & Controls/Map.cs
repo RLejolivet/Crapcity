@@ -74,13 +74,8 @@ public class Map {
 		return (ret);
 	}
 
-[RPC]	public bool destroyBuildOnCase(int i)
+	public bool destroyBuildOnCase(int i)
 	{
-        if (nv.isMine)
-        {
-            nv.RPC("destroyBuildingOnCase", RPCMode.OthersBuffered, i);
-        }
-
 		if (terrain.Count > i)
 		{
 			return (terrain[i].destroyBuilding());
@@ -92,21 +87,13 @@ public class Map {
 		}
 	}
 
-[RPC]    public bool createBuildingOnCase(int i, string name)
+	public bool createBuildingOnCase(int i, string name, Dictionary<string, float> dic_resourcesPlayer)
     {
-
-        if (nv.isMine)
-        {
-            nv.RPC("createBuildingOnCase", RPCMode.OthersBuffered, i, name);
-        }
-        if (terrain.Count > i)
-        {
-            return (terrain[i].build(name));
-        }
-        else
-        {
-            Debug.Log("Fail to create building on compartment : " + i);
-            return false;
-        }
+        return (terrain[i].build(name, dic_resourcesPlayer));
     }
+	
+	public void build(int ncase, string buildingname)
+	{
+		terrain[ncase].buildAuto(buildingname);
+	}
 }

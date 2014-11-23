@@ -13,6 +13,7 @@ public class PlayerAvatar : MonoBehaviour {
 
 	private string s_namePlayer = null;
 	private Map map_myPlayer;
+	private Map map_opponent;
 	private Dictionary<string, float> dic_resourcesPlayer = new Dictionary<string, float>();
 	private float readyToSend = 0;
 	
@@ -36,6 +37,7 @@ public class PlayerAvatar : MonoBehaviour {
         if (i_idThisPlayerInGame == i_idMyPlayerInGame)
         {
             map_myPlayer = new Map(sizeMap, networkView);
+			map_opponent = new Map(sizeMap);
         }
         else
             map_myPlayer = new Map(sizeMap);
@@ -57,21 +59,59 @@ public class PlayerAvatar : MonoBehaviour {
 	public void getSendWastes(bool stock)
 	{
 		float readyToSend = map_myPlayer.getSendWastes(stock);
-		if (readyToSend > dic_resourcesPlayer["Negatif"])
+		if (dic_resourcesPlayer.ContainsKey("Negatif"))
 		{
-			readyToSend = dic_resourcesPlayer["Negatif"];
-		}	
-		if (this.networkView.isMine)
-		{
-			networkView.RPC("sendWaste", RPCMode.OthersBuffered, readyToSend);	
-			dic_resourcesPlayer["Negatif"] -= readyToSend;
-		}
-		else
-		{
-			// shouldn't happen
-			Debug.Log("Try to sendWaste when not allowed to");
+			if (readyToSend > dic_resourcesPlayer["Negatif"])
+			{
+				readyToSend = dic_resourcesPlayer["Negatif"];
+			}	
+			if (this.networkView.isMine)
+			{
+				networkView.RPC("sendWaste", RPCMode.OthersBuffered, readyToSend);	
+				dic_resourcesPlayer["Negatif"] -= readyToSend;
+			}
+			else
+			{
+				// shouldn't happen
+				Debug.Log("Try to sendWaste when not allowed to");
+			}
 		}
 	}
+	
+	public void destroyBuildingOnCase(int ncase)
+	{
+		if(map_myPlayer.destroyBuildOnCase(ncase))
+			networkView.RPC("sendDestroyBuilding", RPCMode.OthersBuffered, ncase);
+	}
+	
+	
+[RPC] public void sendDestroyBuilding(int ncase)
+	{
+		map_opponent.destroyBuildOnCase(ncase);
+	}
+	
+	public void createBuildingOnCase(int ncase, string buildingname)
+	{
+		if (map_myPlayer.createBuildingOnCase(ncase, buildingname, dic_resourcesPlayer))
+		{
+			if (this.networkView.isMine)
+			{
+				networkView.RPC("sendCreateBuilding", RPCMode.OthersBuffered, ncase, buildingname);	
+			}
+			else
+			{
+				// shouldn't happen
+				Debug.Log("Try to sendWaste when not allowed to");
+			}
+		}
+	}
+	
+	
+[RPC]	public void sendCreateBuilding(int ncase, string buildingname)
+	{
+		map_opponent.build(ncase, buildingname);
+	}
+	
 	
 	// Send all the waste available to be sent
 [RPC]	public void sendWaste(float qty)
