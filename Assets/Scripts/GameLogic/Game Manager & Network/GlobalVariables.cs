@@ -27,6 +27,12 @@ public class GlobalVariables : MonoBehaviour {
 	public static Texture[] ATEX_USINE;
 	public Texture[] aTex_usine;
 
+	public static Texture[] ATEX_HACK;
+	public Texture[] aTex_hack;
+
+	public static Texture[] ATEX_RECYCLE;
+	public Texture[] aTex_recycle;
+
     void Awake()
     {
         GO_PLAYER = go_player;
@@ -88,6 +94,18 @@ public class GlobalVariables : MonoBehaviour {
 		for(int i = 0; i < ATEX_USINE.Length; i++)
 		{
 			ATEX_USINE[i] = aTex_usine[i];
+		}
+
+		ATEX_HACK = new Texture[aTex_hack.Length];
+		for(int i = 0; i < ATEX_HACK.Length; i++)
+		{
+			ATEX_HACK[i] = aTex_hack[i];
+		}
+
+		ATEX_RECYCLE = new Texture[aTex_recycle.Length];
+		for(int i = 0; i < ATEX_RECYCLE.Length; i++)
+		{
+			ATEX_RECYCLE[i] = aTex_recycle[i];
 		}
 	}
 }
