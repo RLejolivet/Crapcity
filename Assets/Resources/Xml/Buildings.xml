@@ -9,6 +9,8 @@
 	  <incomes>
 		<Key>Positif</Key>
 		<Value>0</Value>
+	  </incomes>
+	  <incomes>
 		<Key>Negatif</Key>
 		<Value>0</Value>
 	  </incomes>
@@ -28,6 +30,8 @@
 	  <incomes>
 		<Key>Positif</Key>
 		<Value>5</Value>
+	  </incomes>
+	  <incomes>
 		<Key>Negatif</Key>
 		<Value>2</Value>
 	  </incomes>
@@ -47,6 +51,8 @@
 	  <incomes>
 		<Key>Positif</Key>
 		<Value>1</Value>
+	  </incomes>
+	  <incomes>
 		<Key>Negatif</Key>
 		<Value>-1</Value>
 	  </incomes>
@@ -66,6 +72,8 @@
 	  <incomes>
 		<Key>Positif</Key>
 		<Value>0</Value>
+	  </incomes>
+	  <incomes>
 		<Key>Negatif</Key>
 		<Value>0</Value>
 	  </incomes>

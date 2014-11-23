@@ -69,7 +69,7 @@ public class Building {
 			{
 				if (total.ContainsKey(inc.Key))
 				{
-					total[inc.Key] -= inc.Value;
+					total[inc.Key] += inc.Value;
 				}
 				else 
 				{
