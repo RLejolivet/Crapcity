@@ -29,9 +29,35 @@ public class Case {
 	 * Build a building on a compartment
 	 **/
 	
-	public bool build(string name)
+	public bool build(string name, Dictionary<string, float> dic_resourcesPlayer)
 	{
         Building build = BuildingFactory.Instance.create(name);
+		if (build != null)
+		{
+			switch (contains)
+			{
+				case Possibility.Nothing : 
+					contains = Possibility.Building;
+					bat = build;
+					bat.getCost(dic_resourcesPlayer);
+					break;
+				case Possibility.Waste : 
+					contains = Possibility.BuildAndWaste;
+					bat = build;
+					bat.getCost(dic_resourcesPlayer);
+					break;
+				default : 
+					// Shouldn't happen
+					Debug.Log("You're trying to build something over a building");
+					break;
+			}
+		}
+        return true;
+	}
+	
+	public void buildAuto(string name)
+	{
+		Building build = BuildingFactory.Instance.create(name);
 		if (build != null)
 		{
 			switch (contains)
@@ -50,7 +76,7 @@ public class Case {
 					break;
 			}
 		}
-        return true;
+		
 	}
 	
 	public bool destroyBuilding()

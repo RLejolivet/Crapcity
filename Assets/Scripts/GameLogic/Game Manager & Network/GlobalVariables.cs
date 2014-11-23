@@ -33,6 +33,30 @@ public class GlobalVariables : MonoBehaviour {
 	public static Texture[] ATEX_RECYCLE;
 	public Texture[] aTex_recycle;
 
+	public static int I_RESOURCEPSITIVE_USINE;
+	public int i_resourcePositiveUsine;
+
+	public static int I_RESOURCENEGATIVE_USINE;
+	public int i_resourceNegativeUsine;
+
+	public static int I_RESOURCEPSITIVE_HACK;
+	public int i_resourcePositiveHack;
+	
+	public static int I_RESOURCENEGATIVE_HACK;
+	public int i_resourceNegativeHack;
+
+	public static int I_RESOURCEPSITIVE_RECYCLE;
+	public int i_resourcePositiveRecycle;
+	
+	public static int I_RESOURCENEGATIVE_HRECYCLE;
+	public int i_resourceNegativeRecycle;
+
+	public static int I_RESOURCEPSITIVE_TRANSPORT;
+	public int i_resourcePositiveTransport;
+	
+	public static int I_RESOURCENEGATIVE_TRANSPORT;
+	public int i_resourceNegativeTransport;
+
     void Awake()
     {
         GO_PLAYER = go_player;
@@ -107,5 +131,10 @@ public class GlobalVariables : MonoBehaviour {
 		{
 			ATEX_RECYCLE[i] = aTex_recycle[i];
 		}
+
+		I_RESOURCEPSITIVE_HACK = i_resourceNegativeHack;
+		I_RESOURCEPSITIVE_RECYCLE = i_resourceNegativeRecycle;
+		I_RESOURCEPSITIVE_TRANSPORT = i_resourceNegativeTransport;
+		I_RESOURCEPSITIVE_USINE = i_resourceNegativeUsine;
 	}
 }
